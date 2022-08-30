@@ -1,0 +1,117 @@
+[
+    {
+        "key": "pickup-pending",
+        "en": "Parcel is created successfully",
+        "bn": "পার্সেলটি পিকআপের জন্য মার্চেন্ট অনুরোধ করেছেন"
+    },
+    {
+        "key": "pickup-accepted",
+        "en": "Parcel is accepted by the courier",
+        "bn": "পার্সেলটি courier দ্বারা Accept করা হয়েছে"
+    },
+    {
+        "key": "pickup-rejected",
+        "en": "Parcel is rejected",
+        "bn": "পার্সেল পিকাপ বাতিল হয়েছে"
+    },
+    {
+        "key": "pickup-assigned",
+        "en": "Rider assigned to pick up the parcel",
+        "bn": "পার্সেলটি পিকআপের জন্য ডেলিভারি ম্যান নিযুক্ত করা হয়েছে"
+    },
+    {
+        "key": "pickup-completed",
+        "en": "Parcel is picked up",
+        "bn": "পার্সেল পিকাপ সম্পন্ন হয়েছে"
+    },
+    {
+        "key": "pickup-rescheduled",
+        "en": "Parcel is rescheduled",
+        "bn": "পার্সেল পিকআপের জন্য পুনরায় সময় নির্ধারণ করা হয়েছে"
+    },
+    {
+        "key": "pickup-cancelled",
+        "en": "Parcel is cancelled",
+        "bn": "পার্সেল পিকাপ সম্পূর্ণ বাতিল হয়েছে"
+    },
+    {
+        "key": "received-to-warehouse",
+        "en": "Parcel is received in ##hub## Hub",
+        "bn": "পার্সেলটি ##hub## Hub এ রিসিভ করা হয়েছে"
+    },
+    {
+        "key": "dispatched-to-rider",
+        "en": "Parcel is dispatched to ##rider##",
+        "bn": "পার্সেলটি ##rider## এ ডিসপ্যাট করা হয়েছে"
+    },
+    {
+        "key": "delivery-assigned",
+        "en": "Delivery is assigned to ##rider##",
+        "bn": "ডিলিভারি ##rider## এ বরাদ্দ ম্যান নিযুক্ত করা হয়েছে"
+    },
+    {
+        "key": "delivery-in-progress",
+        "en": "Parcel is on the way to delivery by ##rider##",
+        "bn": "ডেলিভারি এজেন্ট ##rider## ডেলিভারির জন্যে বের হয়েছে"
+    },
+    {
+        "key": "delivery-completed",
+        "en": "Parcel is delivered to ##customer##",
+        "bn": "পার্সেলটি ##customer## এ ডেলিভারি করা হয়েছে"
+    },
+    {
+        "key": "delivery-cancelled",
+        "en": "Parcel is cancelled",
+        "bn": "পার্সেল ডেলিভারি সম্পূর্ণ বাতিল হয়েছে"
+    },
+    {
+        "key": "delivery-partially-completed",
+        "en": "Parcel is partially delivered to ##customer##",
+        "bn": "পার্সেলটি ##customer## এ আপনার অংশ ডেলিভারি করা হয়েছে"
+    },
+    {
+        "key": "delivery-rejected",
+        "en": "Parcel is rejected",
+        "bn": "পার্সেল ডেলিভারি বাতিল হয়েছে"
+    },
+    {
+        "key": "return-requested",
+        "en": "Parcel is requested to be returned",
+        "bn": "পার্সেলটি পিরিয়ে ফেরত অনুরোধ করা হয়েছে"
+    },
+    {
+        "key": "parcel-returning",
+        "en": "Parcel is returning",
+        "bn": "পার্সেল পিরিয়ে ফেরত হচ্ছে"
+    },
+    {
+        "key": "return-pickup-in-progress",
+        "en": "Parcel is on the way to return by ##rider##",
+        "bn": "পার্সেলটি ##rider## ডেলিভারির জন্যে ফেরত বের হয়েছে"
+    },
+    {
+        "key": "return-pickup-assigned",
+        "en": "Parcel is being processed for Return",
+        "bn": "রিটার্নের জন্যে পার্সেল প্রস্তুত করা হচ্ছে"
+    },
+    {
+        "key": "return-pickup-completed",
+        "en": "Parcel is returned to ##customer##",
+        "bn": "পার্সেলটি ##customer## এ রিটার্ন করা হয়েছে"
+    },
+    {
+        "key": "return-delivery-in-progress",
+        "en": "Parcel is on the way to return by ##rider##",
+        "bn": "পার্সেলটি ##rider## ডেলিভারির জন্যে ফেরত বের হয়েছে"
+    },
+    {
+        "key": "return-delivery-assigned",
+        "en": "Parcel is being processed for Return",
+        "bn": "রিটার্নের জন্যে পার্সেল প্রস্তুত করা হচ্ছে"
+    },
+    {
+        "key": "return-delivery-completed",
+        "en": "Parcel is returned to ##customer##",
+        "bn": "পার্সেলটি ##customer## এ রিটার্ন করা হয়েছে"
+    }
+]

@@ -1,0 +1,36 @@
+[
+    {
+        "id": "1",
+        "name": "Dhaka",
+        "zones": [
+            {
+                "id": "1",
+                "name": "Zone 1",
+                "areas": [
+                    {
+                        "id": "1",
+                        "name": "Area 1",
+                        "zone_id": "1",
+                        "district_id": "1",
+                        "color": "red",
+                        "zip": "1234"
+                    }
+                ]
+            },
+            {
+                "id": "2",
+                "name": "Zone 2",
+                "areas": [
+                    {
+                        "id": "3",
+                        "name": "Area 3",
+                        "zone_id": "2",
+                        "district_id": "1",
+                        "color": "red",
+                        "zip": "1234"
+                    }
+                ]
+            }
+        ]
+    }
+]

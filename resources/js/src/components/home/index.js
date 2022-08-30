@@ -1,0 +1,7 @@
+export * from './banner'
+export * from './client-feedback'
+export * from './coverage-area'
+export * from './delivery-calculator'
+export * from './faq'
+export * from './logistics-partner'
+export * from './service'
