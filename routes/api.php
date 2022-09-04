@@ -45,4 +45,9 @@ Route::group(['prefix' => 'rider'], function () {
     Route::post('parcel/delivery/request', [RiderController::class, 'deliveryRequest']);
     Route::post('parcel/delivery/modify', [RiderController::class, 'deliveryModify']);
     Route::post('parcel/delivery/runing', [RiderController::class, 'deliveryRunning']);
+
+    //Parcel Return
+    Route::post('parcel/return/request', [RiderController::class, 'returnRequest']);
+    Route::post('parcel/return/modify', [RiderController::class, 'returnModify']);
+    Route::post('parcel/return/runing', [RiderController::class, 'returnRunning']);
 });

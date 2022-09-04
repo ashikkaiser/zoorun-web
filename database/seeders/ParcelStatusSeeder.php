@@ -22,6 +22,7 @@ class ParcelStatusSeeder extends Seeder
                 'key' => $value->key,
                 'message_en' => $value->en,
                 'message_bn' => $value->bn,
+                'group' => $value->group,
             ]);
         }
         //

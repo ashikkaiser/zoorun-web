@@ -1,5 +1,6 @@
 @extends('themes.frest.partials.merchantPanel.app')
 
+@section('title', 'New Parcel Booking')
 @section('css')
     <link rel="stylesheet" href="/frest/vendor/libs/select2/select2.css" />
     <style>
@@ -54,12 +55,7 @@
                                         <label class="form-label" for="sender_district_id">Select District</label>
                                         <x-district-select id="district" name="district_id" next_id="#area" required />
                                     </div>
-                                    {{-- <div class="col-md-4">
-                                        <label class="form-label" for="sender_upazilla_id">Select Upazilla</label>
-                                        <x-upazilla-select id="zone" name="zone_id" pre_id="#district" next_id="#area"
-                                            required />
 
-                                    </div> --}}
                                     <div class="col-md-4">
                                         <label class="form-label" for="sender_area_id">Select Area</label>
                                         <select id="area" class="select2 form-select" data-allow-clear="true" required

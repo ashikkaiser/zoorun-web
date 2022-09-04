@@ -11837,6 +11837,10 @@ button.list-group-item-gray.active {
     position: static !important;
 }
 
+.wspace {
+    white-space: pre-wrap;
+}
+
 .position-relative {
     position: relative !important;
 }

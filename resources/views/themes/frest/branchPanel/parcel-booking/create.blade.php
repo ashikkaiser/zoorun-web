@@ -9,20 +9,7 @@
 @endsection
 
 @section('js')
-    <script src="/frest/vendor/libs/moment/moment.js"></script>
-    <script src="/frest/vendor/libs/datatables/jquery.dataTables.js"></script>
-    <script src="/frest/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <script src="/frest/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
-    <script src="/frest/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
-    <script src="/frest/vendor/libs/datatables-buttons/datatables-buttons.js"></script>
-    <script src="/frest/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js"></script>
-
-    <script src="/frest/vendor/libs/datatables-buttons/buttons.html5.js"></script>
-    <script src="/frest/vendor/libs/datatables-buttons/buttons.print.js"></script>
     <script src="/frest/vendor/libs/select2/select2.js"></script>
-    <script src="/frest/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
-    <script src="/frest/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
-    <script src="/frest/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
 
     {{-- {!! $html->scripts() !!} --}}
 @endsection

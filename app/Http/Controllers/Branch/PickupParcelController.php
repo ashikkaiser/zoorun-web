@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Branch;
 
+use App\DataTables\Branch\PickupParcelDataTable;
+use App\DataTables\Branch\PickupRiderDataTable;
 use App\Events\RiderRunStart;
 use App\Http\Controllers\Controller;
 use App\Models\Parcel;
@@ -20,48 +22,15 @@ class PickupParcelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Builder $builder, Request $request)
+    public function index(PickupParcelDataTable $dataTables)
     {
-        $html = $builder->columns([
-            ['data' => 'DT_RowIndex', 'name' => 'DT_RowIndex', 'title' => 'SL', 'orderable' => false, 'searchable' => false],
-            ['data' => 'parcel_id', 'name' => 'parcel_id', 'title' => 'Parcel'],
-            ['data' => 'customer_name', 'name' => 'customer_name', 'title' => 'Customer Name'],
-            ['data' => 'customer_phone', 'name' => 'customer_phone', 'title' => 'Customer Phone'],
-            ['data' => 'delivery_address', 'name' => 'delivery_address', 'title' => 'Customer Address'],
-            ['data' => 'district.name', 'name' => 'number', 'title' => 'District'],
-            ['data' => 'zone.name', 'name' => 'number', 'title' => 'Zone'],
-            ['data' => 'area.name', 'name' => 'number', 'title' => 'Area'],
-            ['data' => 'status.message_en', 'name' => 'status', 'title' => 'Status'],
-            ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Date'],
-            ['data' => 'action', 'name' => 'action', 'title' => 'Actions', 'orderable' => false, 'searchable' => false, 'width' => '15%'],
-
-        ])->setTableId('pickup-table');
-        if ($request->ajax()) {
-            $bookings = Parcel::query()->branch()->pickup()->with(['district', 'zone', 'area', 'status'])->get();
-            return datatables()->of($bookings)
-                ->addIndexColumn()
-                ->editColumn('created_at', function ($booking) {
-                    return $booking->created_at->diffForHumans();
-                })
-                ->addColumn('action', function ($booking) {
-                    return '
-                     <div class="demo-inline-spacing">
-                        <button class="btn btn-success btn-icon btn-sm accept_parcel" onclick="statusChange(' . $booking->id . ',1)"> <i class="bx bx-check-circle"></i></button>
-                        <button class="btn btn-danger btn-sm btn-icon" onclick="statusChange(' . $booking->id . ',2)"> <i class="bx bxs-x-square"></i></button>
-                        <button class="btn btn-warning btn-sm btn-icon"> <i class="bx bx-edit-alt"></i></button>
-                    </div>
-                    ';
-                })
-                ->rawColumns(['status', 'action'])
-                ->make(true);
-        }
-        return view('themes.frest.branchPanel.pickup-percel.list', compact('html'));
+        return $dataTables->render('themes.frest.branchPanel.pickup-percel.list');
     }
 
 
     public function modifyStatus($id, Request $request)
     {
-        if ($request->type === '1') {
+        if ($request->type === "1") {
             $parcel = Parcel::find($id);
             $riderRunx =  RiderRun::branch()
                 ->where('run_type', 'pickup')
@@ -96,7 +65,6 @@ class PickupParcelController extends Controller
                     $parcel->pickup_rider_run_id = $riderRun->id;
                     $parcel->save();
                 }
-
                 return response()->json([
                     'success' => true,
                     'message' => 'Status updated successfully',
@@ -129,9 +97,7 @@ class PickupParcelController extends Controller
         $riders = Rider::branchRider()->get();
         $html = $builder->columns([
             [
-                'title'          => '<input type="checkbox" id="selectAll">',
-                'data'           => 'checkbox',
-                'name'           => 'checkbox',
+                'title'          => '<input type="checkbox" id="selectAll">',  'data' => 'checkbox',  'name' => 'checkbox',
                 'orderable'      => false,
                 'searchable'     => false,
                 'exportable'     => false,
@@ -193,67 +159,17 @@ class PickupParcelController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function pickupRiderList(Builder $builder, Request $request)
+
+    public function pickupRiderList(PickupRiderDataTable $dataTables, Request $request)
     {
         $riders = Rider::branchRider()->get();
-        $html = $builder->columns([
-            ['data' => 'DT_RowIndex', 'name' => 'DT_RowIndex', 'title' => 'SL', 'orderable' => false, 'searchable' => false],
-            ['data' => 'run_id', 'name' => 'run_id', 'title' => 'Consignment'],
-            ['data' => 'rider.name', 'name' => 'rider.name', 'title' => 'Rider Name'],
-            ['data' => 'rider.phone', 'name' => 'rider.phone', 'title' => 'Rider Phone'],
-            ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Create Date'],
-            ['data' => 'updated_at', 'name' => 'updated_at', 'title' => 'Complete Date'],
-            ['data' => 'total_parcel', 'name' => 'total_parcel', 'title' => 'Total Parcel'],
-            ['data' => 'complete_parcel', 'name' => 'complete_parcel', 'title' => 'Complete Parcel'],
-            ['data' => 'status', 'name' => 'status', 'title' => 'Status'],
-            ['data' => 'action', 'name' => 'action', 'title' => 'Action', "width" => "18%", 'orderable' => false, 'searchable' => false],
+        return $dataTables->render('themes.frest.branchPanel.pickup-rider.list', compact('riders'));
+    }
 
-        ])->parameters([
-            'initComplete' => 'function() {
-                $("[data-toggle=\'tooltip\']").tooltip();
-
-             }',
-        ])
-            ->setTableId('pickupRiderList');
-        if ($request->ajax()) {
-            $riderRuns = RiderRun::query()->branch()->with('rider');
-
-            return datatables()->of($riderRuns)
-                ->addIndexColumn()
-                ->editColumn('created_at', function ($riderRun) {
-                    return $riderRun->created_at->format('d-m-Y');
-                })
-                ->editColumn('updated_at', function ($riderRun) {
-                    return $riderRun->updated_at->format('d-m-Y');
-                })
-                ->editColumn('rider.name', function ($riderRun) {
-                    return $riderRun->rider ? $riderRun->rider->name : 'N/A';
-                })
-                ->editColumn('rider.phone', function ($riderRun) {
-                    return $riderRun->rider ? $riderRun->rider->phone : 'N/A';
-                })
-                ->editColumn('status', function ($riderRun) {
-                    if ($riderRun->status == 1) {
-                        return '<span class="badge bg-info">Pick Up Created</span>';
-                    } else if ($riderRun->status == 2) {
-                        return '<span class="badge bg-primary">Picup Started</span>';
-                    } else if ($riderRun->status == 3) {
-                        return '<span class="badge bg-success">Picup Completed</span>';
-                    }
-                })
-                ->editColumn('action', function ($riderRun) {
-                    return view('themes.frest.branchPanel.pickup-rider.action', compact('riderRun'));
-                })
-                ->rawColumns(['status'])
-                ->make(true);
-        }
-        return view('themes.frest.branchPanel.pickup-rider.list', compact('html', 'riders'));
+    public function ViewModal($id)
+    {
+        $riderRun = RiderRun::find($id);
+        return view('themes.frest.branchPanel.pickup-rider.view-modal', compact('riderRun'));
     }
 
     public function riderRunStart(Request $request)

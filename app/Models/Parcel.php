@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Parcel extends Model
 {
-    use HasFactory;
+    use \Awobaz\Compoships\Compoships;
     public static function boot()
     {
         parent::boot();
@@ -25,11 +25,11 @@ class Parcel extends Model
 
     public function scopePickup($query)
     {
-        return $query->whereIn('status', ['pickup-pending', 'pickup-rescheduled']);
+        return $query->whereIn('status', ['pickup-pending', 'pickup-rescheduled'])->where('is_return', false);
     }
     public function scopeDeleviry($query)
     {
-        return $query->where('status', 'received-to-warehouse')->whereNull('delivery_rider_run_id');
+        return $query->where('status', 'received-to-warehouse')->whereNull('delivery_rider_run_id')->where('is_return', false);
     }
 
 
@@ -77,6 +77,24 @@ class Parcel extends Model
     {
         return $this->belongsTo(RiderParcel::class, 'id', 'parcel_id');
     }
+    public function riderParceldelivery()
+    {
+        return $this->belongsTo(RiderParcel::class, 'id', 'parcel_id')->where('rider', 'delivery');
+    }
+
+    public function riderParcelRetrunDelivery()
+    {
+        return $this->belongsTo(RiderParcel::class, ['id', 'return_delivery_rider_run_id'], ['parcel_id', 'rider_run_id']);
+    }
+
+    public function riderParcelRetrunPickup()
+    {
+        return $this->belongsTo(RiderParcel::class, ['id', 'return_pickup_rider_run_id'], ['parcel_id', 'rider_run_id']);
+    }
+
+
+
+
 
     public function scopeWithRiderRunPickup($query)
     {
@@ -93,6 +111,15 @@ class Parcel extends Model
             $run = RiderRun::find($parcel->delivery_rider_run_id);
             $runx = RiderParcel::where('rider_run_id', $parcel->delivery_rider_run_id)->where('parcel_id', $parcel->id)->first();
             return (object) array_merge($parcel->toArray(), ['rider_run' => $run, 'rider_parcel' => $runx]);
+        });
+    }
+    public function scopeWithRiderRunReturn($query)
+    {
+        return $query->get()->map(function ($parcel) {
+            $run = RiderRun::find($parcel[return_type($parcel)]);
+            $rstatus = ParcelStatus::where('key', $parcel->return_status)->first()->group !== "return-pickup" ? "pickup" : "delivery";
+            $runx = RiderParcel::where('rider_run_id', $parcel[return_type($parcel)])->where('parcel_id', $parcel->id)->first();
+            return (object) array_merge($parcel->toArray(), ['rider_run' => $run, 'rider_parcel' => $runx, 'r_status' => $rstatus]);
         });
     }
 }

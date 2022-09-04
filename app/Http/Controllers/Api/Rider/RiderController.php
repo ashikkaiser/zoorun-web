@@ -42,7 +42,7 @@ class RiderController extends Controller
                 });
             })->flatten()->count();
 
-        $recent_request = Parcel::query()->whereIn('id', $request_pickup)->with(['merchant', 'pickup_address', 'riderParcel', 'branchs'])->withRiderRun();
+        $recent_request = Parcel::query()->whereIn('id', $request_pickup)->with(['merchant', 'pickup_address', 'riderParcel', 'branchs'])->withRiderRunPickup();
 
         return response()->json([
             'request_pickup' => $request_pickup->count() ?? 0,
@@ -229,8 +229,8 @@ class RiderController extends Controller
                 ]);
             }
 
-            $parcel->riderParcel->status = 2;
-            $parcel->riderParcel->rider_id = Auth::user()->rider()->first()->id;
+            $parcel->riderParceldelivery->status = 2;
+            $parcel->riderParceldelivery->rider_id = Auth::user()->rider()->first()->id;
             $parcel->status = 'delivery-assigned';
             $run = RiderRun::find($parcel->delivery_rider_run_id);
             $run->rider_id = Auth::user()->rider()->first()->id;
@@ -330,6 +330,110 @@ class RiderController extends Controller
                 'success' => true,
                 'title' => "Zoorun",
                 'message' => 'Parcel rescheduled'
+            ]);
+        }
+    }
+
+
+    public function returnRequest()
+    {
+        $parcels_ids = RiderRun::whereNull('rider_id')->where('run_type', 'return')->where('status', 1)
+            ->with('rider_parcel')->get()->map(function ($item) {
+                return $item->rider_parcel->map(function ($item) {
+                    return $item->parcel_id;
+                });
+            })->flatten();
+        $parcels = Parcel::query()
+            ->whereIn('id', $parcels_ids)
+            ->orderBy('id', 'desc')
+            ->with(['merchant', 'pickup_address', 'branchs'])
+            ->withRiderRunReturn();
+        return response()->json([
+            'success' => true,
+            'data' => $parcels
+        ]);
+    }
+
+    public function returnRunning(Request $request)
+    {
+        $parcels_ids = RiderRun::where('rider_id', Auth::user()->rider()->first()->id)->where('run_type', 'return')->where('status', 2)
+            ->with('rider_parcel')->get()->map(function ($item) {
+                return $item->rider_parcel->map(function ($item) {
+                    return $item->parcel_id;
+                });
+            })->flatten();
+        $parcels = Parcel::query()
+            ->whereIn('id', $parcels_ids)
+            ->orderBy('id', 'desc')
+            ->with(['merchant', 'pickup_address', 'branchs'])
+            ->withRiderRunReturn();
+        return response()->json([
+            'success' => true,
+            'data' => $parcels
+        ]);
+    }
+
+
+    public function returnModify(Request $request)
+    {
+        $parcel = Parcel::find($request->parcel_id);
+
+        if ($request->type === 'accept') {
+            if ($parcel->status == type($parcel->status, 'accept')) {
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Parcel already accepted by another rider'
+                ]);
+            }
+
+
+            if ($parcel->return_status === 'parcel-delivery-returning') {
+                $parcel->riderParcelRetrunDelivery->status = 2;
+                $parcel->riderParcelRetrunDelivery->rider_id = Auth::user()->rider()->first()->id;
+                $parcel->return_status = 'return-delivery-in-progress';
+                $run = RiderRun::find($parcel->return_delivery_rider_run_id);
+            } else {
+                $parcel->riderParcelRetrunPickup->status = 2;
+                $parcel->riderParcelRetrunPickup->rider_id = Auth::user()->rider()->first()->id;
+                $parcel->return_status = 'return-pickup-in-progress';
+                $run = RiderRun::find($parcel->return_pickup_rider_run_id);
+            }
+
+
+            $run->rider_id = Auth::user()->rider()->first()->id;
+            $run->status = 2;
+            $run->save();
+            $parcel->push();
+            return response()->json([
+                'success' => true,
+                'title' => "Parcel Accepted",
+                'message' => 'Please Collect Parcel From Warehouse'
+            ]);
+        }
+
+        if ($request->type === 'confirm') {
+            $parcel = Parcel::find(request()->parcel_id);
+            if ($parcel->return_status === 'return-delivery-assigned') {
+                $parcel->riderParcelRetrunDelivery->status = 2;
+                $parcel->return_status = 'return-delivery-completed';
+                $run = RiderRun::find($parcel->return_delivery_rider_run_id);
+            } else {
+                $parcel->riderParcelRetrunPickup->status = 3;
+                $parcel->return_status = 'return-pickup-completed';
+                $run = RiderRun::find($parcel->return_pickup_rider_run_id);
+            }
+
+            $run->complete_parcel = $run->complete_parcel + 1;
+            $run->save();
+            $parcel->push();
+            if ($parcel->return_status == 'return-delivery-completed') {
+                riderDeliveryEnd($parcel->return_delivery_rider_run_id);
+            }
+            return response()->json([
+                'success' => true,
+                'title' => "Zoorun",
+                'message' => 'Parcel Confirmed'
             ]);
         }
     }

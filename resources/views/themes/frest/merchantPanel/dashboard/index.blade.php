@@ -1,4 +1,5 @@
 @extends('themes.frest.partials.merchantPanel.app')
+@section('title', 'Merchant Dashboard')
 @section('content')
     <h4 class="py-3 breadcrumb-wrapper mb-4">Welcome Back - {{ Auth::user()->name }}</h4>
     <div class="row">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Merchant;
 
+use App\DataTables\Merchant\MerchantBookingDatatable;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\District;
@@ -28,42 +29,9 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Builder $builder, Request $request)
+    public function index(MerchantBookingDatatable $dataTable, Request $request)
     {
-        $html = $builder->columns([
-            ['data' => 'DT_RowIndex', 'name' => 'DT_RowIndex', 'title' => 'SL', 'orderable' => false, 'searchable' => false],
-            ['data' => 'parcel_id', 'name' => 'parcel_id', 'title' => 'Parcel'],
-            ['data' => 'customer_name', 'name' => 'customer_name', 'title' => 'Customer Name'],
-            ['data' => 'customer_phone', 'name' => 'customer_phone', 'title' => 'Customer Phone'],
-            ['data' => 'delivery_address', 'name' => 'delivery_address', 'title' => 'Customer Address'],
-            ['data' => 'district.name', 'name' => 'number', 'title' => 'District'],
-            ['data' => 'area.name', 'name' => 'number', 'title' => 'Area'],
-            ['data' => 'status.message_en', 'name' => 'status', 'title' => 'Status'],
-            ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Date'],
-            ['data' => 'action', 'name' => 'action', 'title' => 'Actions', 'orderable' => false, 'searchable' => false],
-
-        ])->parameters([
-            'initComplete' => 'function() {
-                $("[data-toggle=\'tooltip\']").tooltip();
-
-             }'
-        ]);
-        if ($request->ajax()) {
-            $bookings = Parcel::query()->where('merchant_id', Auth::user()->merchant->id)->with(['district', 'zone', 'area', 'status'])->get();
-            return datatables()->of($bookings)
-                ->addIndexColumn()
-                ->editColumn('created_at', function ($booking) {
-                    return $booking->created_at->diffForHumans();
-                })
-
-                ->addColumn('action', function ($booking) {
-                    $actionBtn = '<div class="demo-inline-spacing"><a target="_blank" href=' . route("merchant.parcel.booking.generatePrintLabels", $booking->id) . ' class="btn btn-secondary btn-icon btn-sm" data-toggle="tooltip" title="Start Parcel Delivery"><i class="bx bx-play-circle"></i></a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a></div>';
-                    return $actionBtn;
-                })
-                ->rawColumns(['status', 'action'])
-                ->make(true);
-        }
-        return view('themes.frest.merchantPanel.booking.index', compact('html'));
+        return $dataTable->render('themes.frest.merchantPanel.booking.index');
     }
 
 
@@ -137,6 +105,32 @@ class BookingController extends Controller
         $pdf = Pdf::loadView('themes.frest.merchantPanel.booking.print_labels', compact('parcel'));
         return $pdf->stream('document.pdf');
     }
+
+    public function requestReturn($id)
+    {
+        $parcel = Parcel::find($id);
+        $parcel->return_status = type($parcel->status, 'request');
+        $parcel->is_return = true;
+        $parcel->save();
+        return response()->json(['success' => 'Parcel Requested For Return']);
+    }
+    public function holdParcel(Request $request)
+    {
+        $parcel = Parcel::find($request->id);
+        $parcel->is_hold = !$parcel->is_hold;
+        $parcel->save();
+        return response()->json(['success' => 'Parcel Pickup Cancelled']);
+    }
+
+    public function cancelPickup(Request $request)
+    {
+        $parcel = Parcel::find($request->id);
+        $parcel->status = 'pickup-cancelled';
+        $parcel->save();
+        return response()->json(['success' => 'Parcel Pickup Cancelled']);
+    }
+
+
 
 
     public function update(Request $request, $id)

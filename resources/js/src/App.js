@@ -7,7 +7,7 @@ import 'react-phone-input-2/lib/style.css'
 function App() {
     return (
         <>
-            <Layout />
+            <Main />
         </>
     );
 }

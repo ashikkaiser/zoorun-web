@@ -20,12 +20,16 @@ function Main() {
 
 
             <Switch>
+                <Route exact path="/signin" component={Login} />
+                <Route exact path="/login" component={Login} />
                 <Layout>
                     <Route exact path="/" component={Home} />
                     <Route exact path="/enterprise" component={Enterprise} />
                     <Route exact path="/courier" component={Courier} />
                 </Layout>
-                <Route exact path="/signin" component={Login} />
+
+
+
             </Switch>
 
         </Router>

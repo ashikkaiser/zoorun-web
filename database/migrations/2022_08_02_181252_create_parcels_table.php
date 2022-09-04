@@ -47,6 +47,8 @@ return new class extends Migration
             $table->boolean('is_return')->default(false);
             $table->integer('return_pickup_rider_run_id')->nullable();
             $table->integer('return_delivery_rider_run_id')->nullable();
+            $table->boolean('is_hold')->default(false);
+            $table->string('return_status')->nullable();
             $table->timestamps();
         });
     }

@@ -34,7 +34,7 @@ class LoginController extends Controller
     //Login view function
     public function login()
     {
-        return view("auth.login");
+        return view("frontend.index");
     }
 
     public function loginStore(Request $request)
@@ -50,31 +50,64 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
 
             if (auth()->user()->user_type === "admin") {
-                return redirect()->route('admin.dashboard');
+                // return redirect()->route('admin.dashboard');
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Login Successfull',
+                    'route' => route('admin.dashboard')
+                ]);
             }
 
             if (auth()->user()->user_type === "branch") {
-                return redirect()->route('branch.dashboard');
+                // return redirect()->route('branch.dashboard');
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Login Successfull',
+                    'route' => route('branch.dashboard')
+                ]);
             }
 
             if (auth()->user()->user_type === "manager") {
-                return redirect()->route('manager.dashboard');
+                // return redirect()->route('manager.dashboard');
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Login Successfull',
+                    'route' => route('manager.dashboard')
+                ]);
             }
 
             if (auth()->user()->user_type === "merchant") {
-                return redirect()->route('merchant.dashboard');
+                // return redirect()->route('merchant.dashboard');
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Login Successfull',
+                    'route' => route('merchant.dashboard')
+                ]);
             }
 
             if (auth()->user()->user_type === "rider") {
-                return redirect()->route('rider.dashboard');
+                // return redirect()->route('rider.dashboard');
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Login Successfull',
+                    'route' => route('rider.dashboard')
+                ]);
             }
 
             if (auth()->user()->user_type === "warehouse") {
-                return redirect()->route('warehouse.dashboard');
+                // return redirect()->route('warehouse.dashboard');
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Login Successfull',
+                    'route' => route('warehouse.dashboard')
+                ]);
             }
         }
 
-        return redirect("login")->with('error', 'Login details are not valid');
+        return response()->json([
+            'message' => 'The provided credentials do not match our records.',
+            'success' => false
+        ]);
     }
 
     public function logout()

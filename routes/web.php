@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Application\WeightPackageController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Team\MerchantController;
 use App\Http\Controllers\Admin\ParcelSettingController;
+use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\Team\BranchController;
 use App\Http\Controllers\Admin\Team\RiderController;
 use App\Http\Controllers\Admin\Team\WarehouseController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Branch\DeliveryParcelController;
 use App\Http\Controllers\Branch\ParcelBookingController;
 use App\Http\Controllers\Branch\ParcelSettingController as BranchParcelSettingController;
 use App\Http\Controllers\Branch\PickupParcelController;
+use App\Http\Controllers\Branch\ReturnParcelController;
 use App\Http\Controllers\Merchant\AccountController;
 use App\Http\Controllers\Merchant\BookingController;
 use Illuminate\Support\Facades\Route;
@@ -165,6 +167,9 @@ Route::prefix('admin')->group(function () {
     Route::post('/parcel-setting/item/store', [ParcelSettingController::class, 'itemstore'])->name("admin.parcel.setting.item.store");
     Route::post('/parcel-setting/item/update/{id}', [ParcelSettingController::class, 'itemupdate'])->name("admin.parcel.setting.item.update");
     Route::get('/parcel-setting/item/delete', [ParcelSettingController::class, 'itemdestroy'])->name("admin.parcel.setting.item.delete");
+
+    Route::get('site-setting', [SiteSettingController::class, 'index'])->name("site.setting");
+    Route::post('site-setting/store', [SiteSettingController::class, 'store'])->name("site.setting.store");
 });
 //Branch Route
 Route::group(
@@ -177,6 +182,7 @@ Route::group(
         Route::get('/rider/list-by-branch', [\App\Http\Controllers\Branch\PageController::class, 'riderList'])->name('rider.list');
         Route::group(['prefix' => 'parcel', 'as' => 'parcel.'], function () {
             Route::get('pickup/list', [PickupParcelController::class, 'index'])->name('pickup.list');
+            Route::get('pickup/pacel/view/{id}', [PickupParcelController::class, 'viewModal'])->name('pickup.viewModal');
             Route::post('pickup/status/{id}', [PickupParcelController::class, 'modifyStatus'])->name('pickup.status');
             Route::get('pickup/generate', [PickupParcelController::class, 'generate'])->name('pickup.generate');
             Route::post('pickup/generate/store', [PickupParcelController::class, 'storeRiderRun'])->name('pickup.generate.store');
@@ -188,12 +194,18 @@ Route::group(
             //Delivery Parcel
             Route::get('delivery/list', [DeliveryParcelController::class, 'index'])->name('delivery.list');
             Route::post('delivery/status/{id}', [DeliveryParcelController::class, 'modifyStatus'])->name('delivery.status');
+
             Route::get('delivery/generate', [DeliveryParcelController::class, 'generate'])->name('delivery.generate');
             Route::get('delivery/rider/list', [DeliveryParcelController::class, 'deliveryRiderList'])->name('delivery.rider.list');
 
             //Booking Parcel
             Route::get('booking/list', [ParcelBookingController::class, 'index'])->name('booking.list');
             Route::get('booking/create', [ParcelBookingController::class, 'create'])->name('booking.create');
+        });
+        Route::group(['prefix' => 'return-parcel', 'as' => 'return.'], function () {
+            Route::get('parcel-list', [ReturnParcelController::class, 'returnParcelList'])->name('parcel.list');
+            Route::get('rider-list', [ReturnParcelController::class, 'returnRiderList'])->name('rider.list');
+            Route::post('status/{id}', [ReturnParcelController::class, 'modifyStatus'])->name('modifyStatus');
         });
 
         Route::group(['prefix' => 'parcel-setting', 'as' => 'parcel.setting.'], function () {
@@ -230,6 +242,12 @@ Route::group(['prefix' => 'merchant', 'as' => 'merchant.', 'middleware' => ['mer
     Route::get('/parcel/booking/add', [BookingController::class, 'create'])->name('parcel.booking.create');
     Route::post('/parcel/booking/save', [BookingController::class, 'store'])->name('parcel.booking.store');
     Route::get('/parcel/booking/printLabel/{id}', [BookingController::class, 'generatePrintLabels'])->name('parcel.booking.generatePrintLabels');
+
+    Route::get('/parcel/booking/cancel/{id}', [BookingController::class, 'cancelPickup'])->name('parcel.booking.cancel');
+    Route::get('/parcel/booking/hold/{id}', [BookingController::class, 'holdParcel'])->name('parcel.booking.hold');
+    Route::get('/parcel/booking/return/{id}', [BookingController::class, 'requestReturn'])->name('parcel.booking.requestReturn');
+
+
     Route::get('/account/delivery/payment/list', [AccountController::class, 'deliveryPaymentList'])->name('account.delivery.payment.list');
     Route::get('/account/delivery/parcel/list', [AccountController::class, 'deliveryParcelList'])->name('account.delivery.parcel.list');
     Route::get('/order/tracking', [PageController::class, 'orderTrack'])->name('order.track');
@@ -266,9 +284,11 @@ Route::group(['prefix' => 'warehouse', 'as' => 'warehouse.'], function () {
     Route::get('/dashboard', [WarehouseDashboardController::class, 'index'])->name("dashboard");
     Route::get('/profile', [WarehouseProfileController::class, 'index'])->name('profile');
     Route::get('/booking/parcel', [WarehouseBookingController::class, 'index'])->name('booking.parcel');
+    Route::get('/booking/parcel/viewParcel/{id}', [WarehouseBookingController::class, 'viewParcel'])->name('booking.parcel.viewParcel');
     Route::post('/booking/dispatchWarehouse', [WarehouseBookingController::class, 'dispatchWarehouse'])->name('booking.dispatch');
     Route::post('/booking/ajax_get_parcels_by_riders', [WarehouseBookingController::class, 'ajax_get_parcels_by_riders'])->name('booking.ajax_get_parcels_by_riders');
     Route::get('/booking/operation', [WarehouseBookingController::class, 'operation'])->name('booking.operation');
+    Route::get('/booking/return_operation', [WarehouseBookingController::class, 'returnOperation'])->name('booking.returnOperation');
 });
 Route::get('/lost', function () {
     return view('themes.frest.extra.lost');

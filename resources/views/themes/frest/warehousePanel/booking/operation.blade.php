@@ -190,9 +190,42 @@
         </div>
     </form>
     <!--/ User Profile Content -->
+
+    <!-- Modal -->
+    {{-- //modal show --}}
+    <div class="modal fade" id="viewModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" id="showData">
+
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('inline-js')
+    <script>
+        $('#booking_table').on('click', '.view-modal', function() {
+            var parcel_id = $(this).attr('parcel_id');
+            var url = "{{ route('warehouse.booking.parcel.viewParcel', ':parcel_id') }}";
+            url = url.replace(':parcel_id', parcel_id);
+            $('#showData').html('');
+            if (parcel_id.length != 0) {
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    error: function(xhr) {
+                        alert("An error occurred: " + xhr.status + " " + xhr.statusText);
+                    },
+                    url: url,
+                    success: function(response) {
+                        $('#showData').html(response);
+                    },
+
+                })
+            }
+        });
+    </script>
+
     <script>
         var type = 'pickup'
         $('.assign-card').hide();

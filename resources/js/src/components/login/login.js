@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 import PhoneInput from 'react-phone-input-2'
 import Carousel from "react-multi-carousel";
-
+import axios from 'axios';
+import serialize from 'form-serialize';
 const responsive = {
     superLargeDesktop: {
         breakpoint: { max: 4000, min: 3000 },
@@ -24,6 +25,20 @@ const responsive = {
 
 export const LoginItem = () => {
     const [phone, setPhone] = useState({})
+    const handelLogin = (e) => {
+        e.preventDefault();
+        var form = document.querySelector('#loginForm');
+        var obj = serialize(form, { hash: true });
+        axios.post('/login', obj).then(function (response) {
+            if (response.data.success === true) {
+                window.location.href = response.data.route;
+
+            } else {
+                alert(response.data.message)
+            }
+
+        })
+    }
     return (
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
             <div className='  max-w-7xl mx-auto px-4 sm:px-6 md:px-24 lg:px-24 bg-white min-h-screen flex items-center' >
@@ -32,7 +47,20 @@ export const LoginItem = () => {
                         <p className='text-3xl font-bold' >Welcome!</p>
                         <p className='text-md '>Enter your phone number to login or create new account and hit “Continue” to get an OTP.</p>
                         <div className='mt-5'>
-                            <PhoneInput
+                            <form method='POST' action='/login' id='loginForm' onSubmit={handelLogin}>
+                                <input type="hidden" name="_token" value={csrf_token} />
+
+                                <div className="col-span-6 sm:col-span-3 mb-3">
+                                    <label for="wight" className="block text-sm font-medium text-gray-700">Enter your Email</label>
+                                    <input type="email" name="email" id="email" autocomplete="given-name" className=" border-gray-300 border p-3 mt-1   focus:border-green-500 block w-full shadow-sm sm:text-sm focus:border rounded-md" placeholder='Enter your Email' />
+                                </div>
+                                <div className="col-span-6 sm:col-span-3">
+                                    <label for="wight" className="block text-sm font-medium text-gray-700">Enter your Password</label>
+                                    <input type="password" name="password" id="password" autocomplete="given-password" className=" border-gray-300 border p-3 mt-1   focus:border-green-500 block w-full shadow-sm sm:text-sm focus:border rounded-md" placeholder='Enter your Password' />
+                                </div>
+                                <button type='submit' className='bg-green-500 text-white py-3 font-bold my-4 rounded px-5 w-full ' ><span>Login</span> </button>
+                            </form>
+                            {/* <PhoneInput
                                 placeholder={'Phone Number'}
                                 enableAreaCodes={true}
                                 containerStyle={{
@@ -56,9 +84,9 @@ export const LoginItem = () => {
                                 onlyCountries={['bd', 'bd']}
                                 country={'bd'}
                                 onChange={phone => setPhone({ phone: phone })}
-                            />
+                            /> */}
                         </div>
-                        <button className='bg-green-500 text-white py-3 font-bold my-4 rounded px-5 w-full ' ><span>Continue</span> </button>
+
                         <p>By logging in you agree to our <span className='font-bold text-green-600' >Privacy policy</span></p>
                         <div className='border-b border-gray my-5' />
                         <p>For partner account <span className='font-bold text-green-600'>Login with password</span></p>

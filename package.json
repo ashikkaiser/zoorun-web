@@ -29,6 +29,7 @@
         "@headlessui/react": "^1.6.6",
         "@heroicons/react": "^1.0.6",
         "antd": "^4.22.3",
+        "form-serialize": "^0.7.2",
         "react-icons": "^4.4.0",
         "react-multi-carousel": "^2.8.2",
         "react-phone-input-2": "^2.15.1",

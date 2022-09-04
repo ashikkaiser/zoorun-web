@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('message_en');
             $table->string('message_bn');
             $table->string('nex_key')->nullable();
+            $table->string('group')->nullable();
             $table->timestamps();
         });
     }

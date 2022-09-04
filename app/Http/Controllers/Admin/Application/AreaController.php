@@ -218,7 +218,8 @@ class AreaController extends Controller
             return $areas;
         }
         if ($district) {
-            $areas = Area::where('status', true)->where('district_id', $district)->get();
+            $areas = Area::where('status', true)->where('district_id', $district)
+                ->where('name', 'ILIKE', '%' . $request->search . '%')->get();
             return $areas;
         }
     }

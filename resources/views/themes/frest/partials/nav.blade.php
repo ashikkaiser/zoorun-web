@@ -32,8 +32,8 @@
                                                   </div>
                                               </div>
                                               <div class="flex-grow-1">
-                                                  <span class="fw-semibold d-block lh-1">John Doe</span>
-                                                  <small>Admin</small>
+                                                  <span class="fw-semibold d-block lh-1">{{ Auth::user()->name }}</span>
+                                                  <small class="text-uppercase">{{ Auth::user()->user_type }}</small>
                                               </div>
                                           </div>
                                       </a>

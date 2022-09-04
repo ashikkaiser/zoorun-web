@@ -1,21 +1,15 @@
 <!DOCTYPE html>
-
 <html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed" dir="ltr" data-theme="theme-default"
     data-assets-path="/frest/" data-template="vertical-menu-template-starter">
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta
+        name="viewport"content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Courier</title>
-
+    <title>@yield('title') || {{ env('APP_NAME') }}</title>
     <meta name="description" content="" />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/frest/img/favicon/favicon.ico" />
-
-    <!-- Fonts -->
+    <link rel="icon" type="image/x-icon" href="/app/{{ settings()->favicon }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -127,7 +121,7 @@
 
     @yield('inline-js')
     @yield('components.scripts')
-    @yield('components.upazilla-select')
+    {{-- @yield('components.upazilla-select') --}}
 
 
     <!-- Page JS -->

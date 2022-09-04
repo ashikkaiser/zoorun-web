@@ -1,4 +1,5 @@
 @extends('themes.frest.partials.merchantPanel.app')
+@section('title', 'Merchant Profile')
 
 @section('css')
     <link rel="stylesheet" href="/frest/vendor/css/pages/page-profile.css">

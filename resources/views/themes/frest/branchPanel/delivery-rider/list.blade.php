@@ -76,5 +76,4 @@
 @endsection
 
 @section('inline-js')
-    {{-- <script src="/frest/js/form-layouts.js"></script> --}}
 @endsection
