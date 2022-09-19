@@ -1,4 +1,5 @@
 @extends('themes.frest.partials.warehousePanel.app')
+@section('title', 'Warehouse - Bookig Operation')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('frest/vendor/css/pages/page-profile.css') }}">

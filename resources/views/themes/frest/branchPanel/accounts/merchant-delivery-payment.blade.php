@@ -1,4 +1,6 @@
 @extends('themes.frest.partials.branchPanel.app')
+@section('title', 'Branch Merchant Delivery Payment')
+
 @section('css')
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}">

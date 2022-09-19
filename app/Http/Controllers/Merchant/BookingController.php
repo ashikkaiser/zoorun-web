@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Merchant;
 use App\DataTables\Merchant\MerchantBookingDatatable;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\Branch;
 use App\Models\District;
 use App\Models\ItemCategory;
 use App\Models\Parcel;
@@ -46,6 +47,9 @@ class BookingController extends Controller
     public function store(Request $request)
     {
 
+
+
+
         $last_id = Parcel::latest('id')->first();
         $id = isset($last_id) ? $last_id->id  : 0;
         $total = delevery_charge_calculation(
@@ -56,6 +60,8 @@ class BookingController extends Controller
             $request->collection_amount
         );
         $area = Area::find($request->area_id);
+        $destination_branch_id = Branch::where('zone_ids', 'like', '%' . $area->zone_id . '%')->first()->id;
+
         $parcel = new Parcel();
         $parcel->parcel_id = "ZCS" . date("ymd") . Auth::user()->id .
             $id;
@@ -67,6 +73,7 @@ class BookingController extends Controller
         $parcel->zone_id = $area->zone_id;
         $parcel->area_id = $request->area_id;
         $parcel->delivery_type = $request->delivery_type;
+        $parcel->destination_branch_id = $destination_branch_id;
         $parcel->branch_id = Auth::user()->branch_id;
         $parcel->merchant_order_id = $request->merchant_order_id;
         $parcel->delivery_charge = $total['delevery_charge'];

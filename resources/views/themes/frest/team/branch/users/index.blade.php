@@ -1,4 +1,5 @@
 @extends('themes.frest.layouts.app')
+@section('title', 'Admin - Branch Users List')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
@@ -122,8 +123,8 @@
                     class="btn btn-sm {{ request()->status === 'trash' ? 'btn-dark' : '' }}"><span
                         class="tf-icon bx bx-trash bx-xs"></span>
                     Trash</a>
-                <a href="{{ route('admin.team.branch.users.create') }}" type="button"
-                    class="btn btn-sm btn-primary"><span class="tf-icon bx bx-plus bx-xs"></span>
+                <a href="{{ route('admin.team.branch.users.create') }}" type="button" class="btn btn-sm btn-primary"><span
+                        class="tf-icon bx bx-plus bx-xs"></span>
                     Add New User</a>
             </div>
         </div>

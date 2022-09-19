@@ -1,6 +1,5 @@
 @extends('themes.frest.layouts.app')
-
-
+@section('title', 'Admin - Edit Rider')
 @section('css')
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/select2/select2.css') }}" />
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/bootstrap-select/bootstrap-select.css') }}" />

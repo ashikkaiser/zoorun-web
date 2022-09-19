@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Merchant\AuthController;
+use App\Http\Controllers\Api\Merchant\MerchantController;
 use App\Http\Controllers\Api\Rider\AuthController as RiderAuthController;
 use App\Http\Controllers\Api\Rider\RiderController;
 use Illuminate\Http\Request;
@@ -28,6 +29,8 @@ Route::group(['prefix' => 'merchant'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+    Route::post('create', [MerchantController::class, 'create']);
+    Route::post('getarea', [MerchantController::class, 'getarea']);
 });
 
 Route::group(['prefix' => 'rider'], function () {

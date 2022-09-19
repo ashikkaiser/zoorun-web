@@ -1,5 +1,5 @@
 @extends('themes.frest.layouts.app')
-
+@section('title', 'Admin - Area')
 @section('css')
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}">
@@ -12,8 +12,9 @@
     <script src="/frest/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
     <script src="/frest/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
     <script src="/frest/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
-    {!! $html->scripts() !!}
+
     <script src="/frest/vendor/libs/select2/select2.js"></script>
+    {!! $html->scripts() !!}
 @endsection
 
 

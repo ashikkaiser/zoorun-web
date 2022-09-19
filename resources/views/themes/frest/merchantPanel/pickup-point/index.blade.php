@@ -1,5 +1,5 @@
 @extends('admin::partials.merchantPanel.app')
-
+@section('title', 'Merchant Pickup Point List')
 @section('css')
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/select2/select2.css') }}" />
 @endsection

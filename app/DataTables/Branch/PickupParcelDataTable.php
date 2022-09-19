@@ -29,6 +29,12 @@ class PickupParcelDataTable extends DataTable
             ->addColumn('action', function ($booking) {
                 return view('themes.frest.branchPanel.pickup-percel.action', compact('booking'));
             })
+            ->editColumn('delivery_address', function ($booking) {
+                return "<span class='wspace'>{$booking->delivery_address}</span>";
+            })
+            ->editColumn('area.name', function ($booking) {
+                return "<span class='wspace'>{$booking->area->name}</span>";
+            })
             ->editColumn('status', function ($booking) {
                 if ($booking->is_return) {
                     return '<span class="badge badge-success">Return</span>';
@@ -40,7 +46,7 @@ class PickupParcelDataTable extends DataTable
                     }
                 }
             })
-            ->rawColumns(['status', 'action']);
+            ->rawColumns(['status', 'action', 'delivery_address', 'area.name']);
     }
 
     /**
@@ -90,10 +96,10 @@ class PickupParcelDataTable extends DataTable
             Column::make('parcel_id')->title('Parcel'),
             Column::make('customer_name')->title('Customer Name'),
             Column::make('customer_phone')->title('Customer Phone'),
-            Column::make('delivery_address')->title('Customer Address')->width("30%")->className('wspace'),
+            Column::make('delivery_address')->title('Customer Address'),
             Column::make('district.name')->title('District'),
             Column::make('zone.name')->title('Zone'),
-            Column::make('area.name')->title('Area')->width("10%")->className('wspace'),
+            Column::make('area.name')->title('Area'),
             Column::make('status')->title('Status'),
             Column::make('created_at')->title('Date'),
             Column::make('action')->title('Actions')->orderable(false)->searchable(false),

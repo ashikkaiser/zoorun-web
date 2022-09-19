@@ -3,7 +3,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
-    {{ $parcel }}
+    {{-- {{ $parcel }} --}}
     <div class="row">
         <div class="col-md-6">
             <div class="card mb-4">
@@ -48,12 +48,36 @@
                                 <td style="width: 50%"> {{ $parcel->created_at }} </td>
                             </tr>
                             <tr>
+                                <th style="width: 40%">Delivery Charge </th>
+                                <td style="width: 10%"> : </td>
+                                <td style="width: 50%" class="fw-bold"> {{ $parcel->delivery_charge }} TK</td>
+                            </tr>
+                            <tr>
+                                <th style="width: 40%">Product Amount </th>
+                                <td style="width: 10%"> : </td>
+                                <td style="width: 50%" class="fw-bold"> {{ $parcel->product_amount }} TK</td>
+                            </tr>
+                            <tr>
+                                <th style="width: 40%">Collection Amount </th>
+                                <td style="width: 10%"> : </td>
+                                <td style="width: 50%" class="fw-bold"> {{ $parcel->collection_amount }} TK</td>
+                            </tr>
+                            <tr>
                                 <th style="width: 40%">Status </th>
                                 <td style="width: 10%"> : </td>
                                 <td style="width: 50%">
                                     <span class="badge bg-success">{{ $parcel->status }}</span>
                                 </td>
                             </tr>
+                            @if ($parcel->is_return == 1)
+                                <tr>
+                                    <th style="width: 40%">Return Status </th>
+                                    <td style="width: 10%"> : </td>
+                                    <td style="width: 50%">
+                                        <span class="badge bg-danger">{{ $parcel->return_status }}</span>
+                                    </td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>

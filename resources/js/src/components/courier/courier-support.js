@@ -6,7 +6,8 @@ export const CourierSupport = () => {
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6 mt-5 mx-5">
                 <div className=''>
                     <div className='flex items-center justify-center'>
-                        <img className='w-24' src="/assets/image/home/logisticks/avail-any-vehicle.png" alt="" />
+                        <img className='w-24' src="/assets/image/courier/home-del.png" alt="" />
+                        {/* <img className='w-24' src="/assets/image/home/logisticks/avail-any-vehicle.png" alt="" /> */}
                     </div>
 
                     <div className='my-2 p-1 text-center mt-6'>

@@ -1,4 +1,5 @@
 @extends('themes.frest.layouts.app')
+@section('title', 'Admin - Item Category')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">

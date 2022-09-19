@@ -64,46 +64,66 @@ class DeliveryParcelController extends Controller
     {
         if ($request->type === '1') {
             $parcel = Parcel::find($id);
+            $riderRun = new RiderRun();
+            $riderRun->branch_id = Auth::user()->branch_id;
+            $riderRun->merchant_id = $parcel->merchant_id;
+            $riderRun->run_type = 'delivery';
+            $riderRun->create_date_time = now();
+            $riderRun->total_parcel = 1;
+            $riderRun->status = 1;
 
-            $riderRunx =  RiderRun::branch()
-                ->whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])
-                ->where('status', 2)
-                ->first();
-            if ($riderRunx) {
-                $riderRunx->total_parcel = $riderRunx->total_parcel + 1;
-                if ($riderRunx->save()) {
-                    riderRunStart($riderRunx, $id);
-                    $parcel->status = 'dispatched-to-rider';
-                    $parcel->delivery_rider_run_id = $riderRunx->rider_id;
-                    $parcel->save();
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Status updated successfully',
-
-                    ]);
-                }
-            } else {
-                $riderRun = new RiderRun();
-                $riderRun->branch_id = Auth::user()->branch_id;
-                $riderRun->merchant_id = $parcel->merchant_id;
-                $riderRun->run_type = 'delivery';
-                $riderRun->create_date_time = now();
-                $riderRun->total_parcel = 1;
-                $riderRun->status = 1;
-
-                if ($riderRun->save()) {
-                    riderRunStart($riderRun, $id);
-                    $parcel->status = 'dispatched-to-rider';
-                    $parcel->delivery_rider_run_id = $riderRun->id;
-                    $parcel->save();
-                }
-
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Status updated successfully',
-                    'dd' =>  $riderRun,
-                ]);
+            if ($riderRun->save()) {
+                riderRunStart($riderRun, $id);
+                $parcel->status = 'dispatched-to-rider';
+                $parcel->delivery_rider_run_id = $riderRun->id;
+                $parcel->save();
             }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Status updated successfully',
+                'dd' =>  $riderRun,
+            ]);
+            // $riderRunx =  RiderRun::branch()
+            //     ->whereDateBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])
+            //     ->where('run_type', 'delivery')
+            //     ->whereIn('status', [2, 1])
+            //     ->first();
+            // if ($riderRunx) {
+            //     $riderRunx->total_parcel = $riderRunx->total_parcel + 1;
+            //     if ($riderRunx->save()) {
+            //         riderRunStart($riderRunx, $id);
+            //         $parcel->status = 'dispatched-to-rider';
+            //         $parcel->delivery_rider_run_id = $riderRunx->rider_id;
+            //         $parcel->save();
+            //         return response()->json([
+            //             'success' => true,
+            //             'message' => 'Status updated successfully',
+
+            //         ]);
+            //     }
+            // } else {
+            //     $riderRun = new RiderRun();
+            //     $riderRun->branch_id = Auth::user()->branch_id;
+            //     $riderRun->merchant_id = $parcel->merchant_id;
+            //     $riderRun->run_type = 'delivery';
+            //     $riderRun->create_date_time = now();
+            //     $riderRun->total_parcel = 1;
+            //     $riderRun->status = 1;
+
+            //     if ($riderRun->save()) {
+            //         riderRunStart($riderRun, $id);
+            //         $parcel->status = 'dispatched-to-rider';
+            //         $parcel->delivery_rider_run_id = $riderRun->id;
+            //         $parcel->save();
+            //     }
+
+            //     return response()->json([
+            //         'success' => true,
+            //         'message' => 'Status updated successfully',
+            //         'dd' =>  $riderRun,
+            //     ]);
+            // }
         } else {
             // TODO:://return to merchant
             return response()->json([

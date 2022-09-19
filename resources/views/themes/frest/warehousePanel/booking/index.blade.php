@@ -1,4 +1,5 @@
 @extends('themes.frest.partials.warehousePanel.app')
+@section('title', 'Warehouse - Booking List')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">

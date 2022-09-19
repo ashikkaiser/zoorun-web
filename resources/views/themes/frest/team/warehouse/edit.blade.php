@@ -1,4 +1,5 @@
 @extends('themes.frest.layouts.app')
+@section('title', 'Admin - Edit Warehouse')
 
 
 @section('css')

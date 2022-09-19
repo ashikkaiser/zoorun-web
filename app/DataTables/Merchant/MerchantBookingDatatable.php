@@ -37,11 +37,14 @@ class MerchantBookingDatatable extends DataTable
                     }
                 }
             })
+            ->editColumn('delivery_address', function ($booking) {
+                return "<span class='wspace'>" . $booking->delivery_address . "</span>";
+            })
             ->editColumn('created_at', function ($booking) {
                 return $booking->created_at->format('d M, Y');
             })
 
-            ->rawColumns(['status', 'action']);
+            ->rawColumns(['status', 'action', 'delivery_address']);
     }
 
     /**
@@ -110,7 +113,7 @@ class MerchantBookingDatatable extends DataTable
             Column::make('parcel_id')->title('Parcel'),
             Column::make('customer_name')->title('Customer Name'),
             Column::make('customer_phone')->title('Customer Phone'),
-            Column::make('delivery_address')->title('Customer Address')->width("20%")->className('wspace'),
+            Column::make('delivery_address')->title('Customer Address'),
             Column::make('district.name')->title('District'),
             Column::make('area.name')->title('Area'),
             Column::make('status')->title('Status'),

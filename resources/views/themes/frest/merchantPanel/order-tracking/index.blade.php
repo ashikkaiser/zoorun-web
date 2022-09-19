@@ -1,5 +1,5 @@
 @extends('admin::partials.merchantPanel.app')
-
+@section('title', 'Merchant Order Tracking')
 @section('css')
 @endsection
 

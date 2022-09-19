@@ -1,4 +1,5 @@
 @extends('themes.frest.partials.branchPanel.app')
+@section('title', 'Branch - Profile')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('frest/vendor/css/pages/page-profile.css') }}">

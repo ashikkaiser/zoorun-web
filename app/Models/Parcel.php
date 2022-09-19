@@ -73,13 +73,13 @@ class Parcel extends Model
     //     return $this->belongsTo(RiderRun::class);
     // }
 
-    public function riderParcel()
+    public function pickupriderParcel()
     {
-        return $this->belongsTo(RiderParcel::class, 'id', 'parcel_id');
+        return $this->belongsTo(RiderParcel::class, ['id', 'pickup_rider_run_id'], ['parcel_id', 'rider_run_id']);
     }
     public function riderParceldelivery()
     {
-        return $this->belongsTo(RiderParcel::class, 'id', 'parcel_id')->where('rider', 'delivery');
+        return $this->belongsTo(RiderParcel::class, ['id', 'delivery_rider_run_id'], ['parcel_id', 'rider_run_id']);
     }
 
     public function riderParcelRetrunDelivery()

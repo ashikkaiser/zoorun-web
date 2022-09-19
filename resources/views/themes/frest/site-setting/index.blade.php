@@ -1,4 +1,6 @@
 @extends('themes.frest.layouts.app')
+@section('title', 'Admin- Site Setting')
+
 @section('content')
     <div class="card mb-4">
         <h5 class="card-header">Site Setting</h5>

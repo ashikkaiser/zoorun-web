@@ -9,7 +9,6 @@ use App\Models\RiderRun;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class RiderController extends Controller
 {
@@ -49,6 +48,7 @@ class RiderController extends Controller
             'running_pickup' => $running_pickup,
             'complete_pickup' => $complete_pickup,
             'recent_request' => $recent_request,
+            'balance' => 0,
         ]);
     }
 
@@ -62,7 +62,7 @@ class RiderController extends Controller
                     return $item->parcel_id;
                 });
             })->flatten();
-        $parcels = Parcel::query()->whereIn('id', $parcels_ids)->with(['merchant', 'pickup_address',  'branchs'])
+        $parcels = Parcel::query()->whereIn('id', $parcels_ids)->where('branch_id', Auth::user()->branch_id)->with(['merchant', 'pickup_address',  'branchs'])
             ->withRiderRunPickup();
 
         return response()->json([
@@ -85,10 +85,10 @@ class RiderController extends Controller
             $rider_parcel = RiderParcel::where('rider_run_id', $parcel->pickup_rider_run_id)->get();
             foreach ($rider_parcel as $item) {
                 $p = Parcel::find($item->parcel_id);
-                $p->riderParcel->status = 2;
-                $p->riderParcel->rider_id = Auth::user()->rider()->first()->id;
+                $p->pickupriderParcel->status = 2;
+                $p->pickupriderParcel->rider_id = Auth::user()->rider()->first()->id;
                 $p->status = 'pickup-assigned';
-                $run = RiderRun::find($p->riderParcel->rider_run_id);
+                $run = RiderRun::find($p->pickupriderParcel->rider_run_id);
                 $run->rider_id = Auth::user()->rider()->first()->id;
                 $run->status = 2;
                 $run->save();
@@ -111,7 +111,7 @@ class RiderController extends Controller
                 ]);
             }
             $parcel->status = 'pickup-completed';
-            $parcel->riderParcel->status = 3;
+            $parcel->pickupriderParcel->status = 3;
             $parcel->rider_run->complete_parcel = $parcel->rider_run->complete_parcel + 1;
             $parcel->push();
             return response()->json([
@@ -276,8 +276,13 @@ class RiderController extends Controller
         if ($request->type === 'confirm') {
             $parcel = Parcel::find(request()->parcel_id);
             if ($parcel->delivery_otp == request()->otp) {
-                $parcel->status = 'delivery-completed';
-                $parcel->riderParcel->status = 3;
+                if ($request->deliveryType == "2") {
+                    $parcel->status = 'delivery-partially-completed';
+                } else {
+                    $parcel->status = 'delivery-completed';
+                }
+                $parcel->collected_amount   = $request->collected_amount;
+                $parcel->riderParceldelivery->status = 3;
                 $parcel->rider_run->complete_parcel = $parcel->rider_run->complete_parcel + 1;
                 $parcel->push();
                 riderDeliveryEnd($parcel->delivery_rider_run_id);

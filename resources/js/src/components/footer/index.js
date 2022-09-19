@@ -45,13 +45,13 @@ export const Footer = () => {
                         <p className='text-xl font-semibold' >যোগাযোগ</p>
                         <div className=" mt-4 ">
                             <a href="/">
-                                <p className='text-md mb-2' >বি ১১২, রোড ০৬, মহাখালি ডিওএইচএস, ঢাকা-১২০৬</p>
+                                <p className='text-md mb-2' >House: 558 (5th Floor), Kazipara Bus Stop, Kazipara, Mirpur, Dhaka - 1216</p>
                             </a>
                             <a href="/">
-                                <p className='text-md mb-2' >০৯৬১০০০৭৩৩৯</p>
+                                <p className='text-md mb-2' >+8801324411649</p>
                             </a>
                             <a href="/">
-                                <p className='text-md mb-2' >contact@redx.com.bd</p>
+                                <p className='text-md mb-2' >admin@zoorunbd.com</p>
                             </a>
 
                         </div>

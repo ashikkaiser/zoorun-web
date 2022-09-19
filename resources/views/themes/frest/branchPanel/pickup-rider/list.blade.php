@@ -1,7 +1,5 @@
 @extends('themes.frest.partials.branchPanel.app')
-
-
-@section('title', 'Pickup Rider List')
+@section('title', 'Branch - Pickup Rider List')
 
 
 @section('css')

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Branch;
 
 use App\DataTables\Branch\PickupParcelDataTable;
 use App\DataTables\Branch\PickupRiderDataTable;
-use App\Events\RiderRunStart;
 use App\Http\Controllers\Controller;
 use App\Models\Parcel;
 use App\Models\ParcelHistory;
@@ -42,7 +41,7 @@ class PickupParcelController extends Controller
                 if ($riderRunx->save()) {
                     riderRunStart($riderRunx, $id);
                     $parcel->status = 'pickup-accepted';
-                    $parcel->pickup_rider_run_id = $riderRunx->rider_id;
+                    $parcel->pickup_rider_run_id = $riderRunx->id;
                     $parcel->save();
                     return response()->json([
                         'success' => true,

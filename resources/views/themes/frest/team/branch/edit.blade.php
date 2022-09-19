@@ -1,4 +1,5 @@
 @extends('themes.frest.layouts.app')
+@section('title', 'Admin - Edit Branch')
 
 
 @section('css')
@@ -98,8 +99,14 @@
     </div>
 @endsection
 
+{{-- @php
+dd(json_decode($branch->zone_ids, JSON_NUMERIC_CHECK));
+@endphp --}}
 @section('inline-js')
+
     <script type="text/javascript">
+        var currentData = JSON.parse("{{ $branch->zone_ids }}".replace(/&quot;/g, '"'));
+
         $('#district').on('select2:select', function(e) {
             $('#zone').empty().trigger('change');
             $('#area').empty().trigger('change');
@@ -124,6 +131,7 @@
             fetch(`{{ route('admin.application.getzone') }}?district={{ $branch->district_id }}`)
                 .then(async res => await res.json())
                 .then(data => {
+                    console.log(data)
                     var defaultOption = new Option("", "", true, true);
                     $('#zone').append(defaultOption).trigger('change');
                     data.map(item => {
@@ -131,7 +139,7 @@
                         $('#zone').append(newOption).trigger('change');
                     })
 
-                    $("#zone").val({{ $branch->zone_ids }}).trigger('change');
+                    $("#zone").val(currentData).trigger('change');
 
                 }).catch(err => {
                     console.log(err)
@@ -139,21 +147,21 @@
         }
         getUp();
 
-        function getArea() {
-            fetch(`{{ route('admin.application.getarea') }}?zone={{ $branch->zone_id }}`)
-                .then(async res => await res.json())
-                .then(data => {
-                    var defaultOption = new Option("", "", true, true);
-                    $('#area').append(defaultOption).trigger('change');
-                    data.map(item => {
-                        var newOption = new Option(item.name, item.id, true, false);
-                        $('#area').append(newOption).trigger('change');
-                    })
-                    $("#area").val({{ $branch->area_id }}).trigger('change');
-                }).catch(err => {
-                    console.log(err)
-                })
-        }
-        getArea();
+        // function getArea() {
+        //     fetch(`{{ route('admin.application.getarea') }}?zone={{ $branch->zone_id }}`)
+        //         .then(async res => await res.json())
+        //         .then(data => {
+        //             var defaultOption = new Option("", "", true, true);
+        //             $('#area').append(defaultOption).trigger('change');
+        //             data.map(item => {
+        //                 var newOption = new Option(item.name, item.id, true, false);
+        //                 $('#area').append(newOption).trigger('change');
+        //             })
+        //             $("#area").val({{ $branch->area_id }}).trigger('change');
+        //         }).catch(err => {
+        //             console.log(err)
+        //         })
+        // }
+        // getArea();
     </script>
 @endsection

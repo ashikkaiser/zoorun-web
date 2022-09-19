@@ -1,4 +1,6 @@
 @extends('themes.frest.layouts.app')
+@section('title', 'Admin - Add New Merchant')
+
 
 
 @section('css')

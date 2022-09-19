@@ -33,25 +33,21 @@ export const Banner = () => {
                 removeArrowOnDeviceType
                 keyBoardControl={false}
                 autoPlay={true}
-                autoPlaySpeed={6000}
+                autoPlaySpeed={4000}
                 infinite={true}
                 responsive={responsive}>
-                <div className=' h-full sm:h-full  md:h-3/5 lg:h-3/5' >
-                    {/* <img src={require('../../assets/image/home/banner/homeBanner.jpg')} alt="" /> */}
-                    <ReactPlayer width={"100%"} muted={true} playing={true} height={'100%'} url="https://d118vismjsp9sl.cloudfront.net/web2.0/video/hero-video-1.webm" />
+                <div  >
+                    <img className=' w-full  object-contain' src='/assets/image/home/banner/banner1.jpg' alt="" />
                 </div>
-                <div className=' h-full sm:h-full  md:h-3/5 lg:h-3/5' >
-                    <ReactPlayer width={'100%'} muted={true} playing={true} height={'100%'} url="https://d118vismjsp9sl.cloudfront.net/web2.0/video/hero-video-2.webm" />
+                <div  >
+                    <img className=' w-full    object-contain' src='/assets/image/home/banner/banner2.jpg' alt="" />
                 </div>
-                <div className=' h-full sm:h-full  md:h-3/5 lg:h-3/5' >
-                    <ReactPlayer width={'100%'} muted={true} playing={true} height={'100%'} url="https://d118vismjsp9sl.cloudfront.net/web2.0/video/hero-video-3.webm" />
-                </div>
-                <div className=' h-full sm:h-full  md:h-3/5 lg:h-3/5' >
-                    <ReactPlayer width={'100%'} muted={true} playing={true} height={'100%'} url="https://d118vismjsp9sl.cloudfront.net/web2.0/video/hero-video-4.webm" />
+                <div>
+                    <img className=' w-full    object-contain' src='/assets/image/home/banner/banner3.jpg' alt="" />
                 </div>
             </Carousel>
 
-            <div
+            {/* <div
                 className=' w-full sm:w-full  md:w-1/3	 lg:w-1/3  h-full sm:h-full  md:h-3/5 lg:h-3/5 md:absolute lg:absolute top-0 right-0 bg-black '
                 style={{
                     borderBottomLeftRadius: 20
@@ -101,25 +97,10 @@ export const Banner = () => {
                     </div>
                 </div>
 
-            </div>
+            </div> */}
 
 
-            <div className='container mx-auto mt-10 px-5'>
-                <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6'>
-                    <div className='flex items-center' >
-                        <p className='text-gray-400' >TOP ENTERPRISES</p>
-                        <img className='w-20 sm:w-20 md:w-40 lg:w-40 grayscale hover:grayscale-0' src="/assets/image/bata-color.png" alt="" />
-                        <img className='w-20 sm:w-20 md:w-40 lg:w-40 grayscale hover:grayscale-0' src="/assets/image/rangs-group-color.png" alt="" />
-                        <img className='w-20 sm:w-20 md:w-40 lg:w-40 grayscale hover:grayscale-0' src="/assets/image/lotto-color.png" alt="" />
-                    </div>
-                    <div className='flex items-center gap-14' >
-                        <p className='text-gray-400' >TOP SMES</p>
-                        <img className='w-10 sm:w-10 md:w-24 grayscale hover:grayscale-0' src="/assets/image/daraz-color.png" alt="" />
-                        <img className='w-10 sm:w-10 md:w-24 grayscale hover:grayscale-0' src="/assets/image/ajkerdeal-color.png" alt="" />
-                        <img className='w-10 sm:w-10 md:w-24 grayscale hover:grayscale-0' src="/assets/image//othoba-color.png" alt="" />
-                    </div>
-                </div>
-            </div>
+
         </div>
     );
 };

@@ -7,14 +7,14 @@ export const Service = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6 mt-5 mx-5">
                 <div>
-                    <img src="/assets/image/home/service/parcel-delivery.webp" alt="" />
+                    <img src="/assets/image/home/service/delivery.jpeg" alt="" />
                     <div className='my-2 p-1'>
                         <p className='text-xl font-bold' >পার্সেল ডেলিভারি</p>
                         <p className='text-md text-gray-500' >ব্যক্তিগত, ছোট ব্যবসা এবং কর্পোরেটদের জন্য ফার্স্ট-মাইল পিকআপ এবং লাস্ট মাইল ডেলিভারি সেবা</p>
                     </div>
                 </div>
                 <div>
-                    <img src="/assets/image/home/service/bulk-shipment.webp" alt="" />
+                    <img src="/assets/image/home/service/shipment-1.png" alt="" />
                     <div className='my-2 p-1'>
                         <p className='text-xl font-bold' >বাল্ক শিপমেন্ট</p>
                         <p className='text-md text-gray-500' >বড় আইটেম এবং বড় সংখ্যক ডেলিভারির বিশেষ সমাধান</p>

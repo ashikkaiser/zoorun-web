@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import bannerImage from '../../assets/image/enterprise/enterpriseBanner.png'
+import bannerImage from '../../assets/image/enterprise/banner-1.jpeg'
 import PhoneInput from 'react-phone-input-2'
 
 import { AiFillCheckCircle } from 'react-icons/ai'
@@ -7,7 +7,6 @@ import Carousel from "react-multi-carousel";
 
 const responsive = {
     superLargeDesktop: {
-        // the naming can be any, depends on you.
         breakpoint: { max: 4000, min: 3000 },
         items: 6
     },
@@ -115,9 +114,12 @@ export const EnterpriseBanner = () => {
                     autoPlaySpeed={3000}
                     infinite={true}
                     responsive={responsive}>
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((d, i) => (
-                        <img className='w-20' src="/assets/image/daraz-color.png" alt="" />
-                    ))}
+                    <img className='w-20' src="/assets/image/merchant/BD Beponi.png" alt="merchent Image" />
+                    <img className='w-20' src="/assets/image/merchant/Priyoshop Logo.png" alt="merchent Image" />
+                    <img className='w-20' src="/assets/image/merchant/Q Comm.png" alt="merchent Image" />
+                    <img className='w-20' src="/assets/image/merchant/BD Beponi.png" alt="merchent Image" />
+                    <img className='w-20' src="/assets/image/merchant/Priyoshop Logo.png" alt="merchent Image" />
+                    <img className='w-20' src="/assets/image/merchant/Q Comm.png" alt="merchent Image" />
                 </Carousel>
             </div>
         </>

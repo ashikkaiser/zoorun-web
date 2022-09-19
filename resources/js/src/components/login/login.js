@@ -40,8 +40,8 @@ export const LoginItem = () => {
         })
     }
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-            <div className='  max-w-7xl mx-auto px-4 sm:px-6 md:px-24 lg:px-24 bg-white min-h-screen flex items-center' >
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 bg-white">
+            <div className='  max-w-7xl mx-auto px-4 sm:px-6 md:px-24 lg:px-24  min-h-screen flex items-center' >
                 <div className="flex justify-center">
                     <div className=' w-full sm:w-full md:w-2/3 lg:w-2/3'>
                         <p className='text-3xl font-bold' >Welcome!</p>

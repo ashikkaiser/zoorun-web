@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Log;
 
 class RiderRun extends Model
 {
-    use HasFactory;
+
+    use \Awobaz\Compoships\Compoships,  HasFactory;
     public static function boot()
     {
         parent::boot();
@@ -45,6 +46,7 @@ class RiderRun extends Model
 
     function rider_parcel()
     {
+        //  ['rider_run_id', 'parcel_id'], ['id', 'parcel_id']
         return $this->hasMany(RiderParcel::class);
     }
     public function scopeBranch($query)

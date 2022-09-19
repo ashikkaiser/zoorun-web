@@ -39,6 +39,7 @@ return new class extends Migration
             $table->dateTime('delivery_reschedule_date')->nullable();
             $table->integer('pickup_reschedule_attempts')->default(0);
             $table->integer('delivery_reschedule_attempts')->default(0);
+            $table->integer('destination_branch_id')->nullable();
             $table->string('remarks');
             $table->double('total');
             $table->string('delivery_otp')->nullable();

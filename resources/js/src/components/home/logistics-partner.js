@@ -1,4 +1,8 @@
 import React from 'react';
+import { GiTruck, GiDeliveryDrone } from "react-icons/gi";
+import { FaSms, FaHandHoldingUsd } from "react-icons/fa";
+import { BsCashCoin } from "react-icons/bs";
+import { TbShoppingCartPlus, TbTruckDelivery } from "react-icons/tb";
 
 export const LogisticsPartner = () => {
     return (
@@ -9,7 +13,8 @@ export const LogisticsPartner = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-5 mx-5">
                     <div className=''>
                         <div className='flex items-center justify-center'>
-                            <img className='w-24' src="/assets/image/home/logisticks/avail-any-vehicle.png" alt="" />
+                            <GiTruck size={60} color={'#34a34b'} />
+                            {/* <img className='w-24' src="/assets/image/home/logisticks/avail-any-vehicle.png" alt="" /> */}
                         </div>
 
                         <div className='my-2 p-1 text-center mt-6'>
@@ -19,7 +24,8 @@ export const LogisticsPartner = () => {
                     </div>
                     <div className=''>
                         <div className='flex items-center justify-center'>
-                            <img className='w-24' src="/assets/image/home/logisticks/avail-any-vehicle.png" alt="" />
+                            <TbTruckDelivery size={60} color={'#34a34b'} />
+                            {/* <img className='w-24' src="/assets/image/home/logisticks/avail-any-vehicle.png" alt="" /> */}
                         </div>
 
                         <div className='my-2 p-1 text-center mt-6'>
@@ -29,7 +35,8 @@ export const LogisticsPartner = () => {
                     </div>
                     <div className=''>
                         <div className='flex items-center justify-center'>
-                            <img className='w-24' src="/assets/image/home/logisticks/avail-any-vehicle.png" alt="" />
+                            <FaSms size={60} color={'#34a34b'} />
+                            {/* <img className='w-24' src="/assets/image/home/logisticks/avail-any-vehicle.png" alt="" /> */}
                         </div>
 
                         <div className='my-2 p-1 text-center mt-6'>
@@ -39,7 +46,9 @@ export const LogisticsPartner = () => {
                     </div>
                     <div className=''>
                         <div className='flex items-center justify-center'>
-                            <img className='w-24' src="/assets/image/home/logisticks/avail-any-vehicle.png" alt="" />
+
+                            <FaHandHoldingUsd size={60} color={'#34a34b'} />
+                            {/* <img className='w-24' src="/assets/image/home/logisticks/avail-any-vehicle.png" alt="" /> */}
                         </div>
 
                         <div className='my-2 p-1 text-center mt-6'>
@@ -49,7 +58,8 @@ export const LogisticsPartner = () => {
                     </div>
                     <div className=''>
                         <div className='flex items-center justify-center'>
-                            <img className='w-24' src="/assets/image/home/logisticks/avail-any-vehicle.png" alt="" />
+                            <BsCashCoin size={60} color={'#34a34b'} />
+                            {/* <img className='w-24' src="/assets/image/home/logisticks/avail-any-vehicle.png" alt="" /> */}
                         </div>
 
                         <div className='my-2 p-1 text-center mt-6'>
@@ -59,7 +69,8 @@ export const LogisticsPartner = () => {
                     </div>
                     <div className=''>
                         <div className='flex items-center justify-center'>
-                            <img className='w-24' src="/assets/image/home/logisticks/avail-any-vehicle.png" alt="" />
+                            <TbShoppingCartPlus size={60} color={'#34a34b'} />
+                            {/* <img className='w-24' src="/assets/image/home/logisticks/avail-any-vehicle.png" alt="" /> */}
                         </div>
 
                         <div className='my-2 p-1 text-center mt-6'>

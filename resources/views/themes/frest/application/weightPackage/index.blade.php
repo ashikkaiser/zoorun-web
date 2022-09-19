@@ -1,4 +1,5 @@
 @extends('themes.frest.layouts.app')
+@section('title', 'Admin - Weight Package Settings')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
@@ -71,15 +72,15 @@
                             <div class="col-12">
                                 <label class="form-label w-100" for="name">Name</label>
                                 <div class="input-group input-group-merge">
-                                    <input id="name" name="name" class="form-control credit-card-mask" type="text"
-                                        placeholder="Name" aria-describedby="name2" required />
+                                    <input id="name" name="name" class="form-control credit-card-mask"
+                                        type="text" placeholder="Name" aria-describedby="name2" required />
                                 </div>
                             </div>
                             <div class="col-12">
                                 <label class="form-label w-100" for="name">Title</label>
                                 <div class="input-group input-group-merge">
-                                    <input id="title" name="title" class="form-control credit-card-mask" type="text"
-                                        placeholder="Title" aria-describedby="title" required />
+                                    <input id="title" name="title" class="form-control credit-card-mask"
+                                        type="text" placeholder="Title" aria-describedby="title" required />
                                 </div>
                             </div>
 
@@ -105,8 +106,8 @@
                             <div class="col-12">
                                 <label class="form-label w-100" for="name">Rate</label>
                                 <div class="input-group input-group-merge">
-                                    <input id="rate" name="rate" class="form-control credit-card-mask" type="text"
-                                        placeholder="rate" aria-describedby="rate" required />
+                                    <input id="rate" name="rate" class="form-control credit-card-mask"
+                                        type="text" placeholder="rate" aria-describedby="rate" required />
                                 </div>
                             </div>
 
@@ -135,15 +136,15 @@
                             <div class="col-12">
                                 <label class="form-label w-100" for="editname">Name</label>
                                 <div class="input-group input-group-merge">
-                                    <input id="editname" name="name" class="form-control credit-card-mask" type="text"
-                                        placeholder="Name" aria-describedby="editname" required />
+                                    <input id="editname" name="name" class="form-control credit-card-mask"
+                                        type="text" placeholder="Name" aria-describedby="editname" required />
                                 </div>
                             </div>
                             <div class="col-12">
                                 <label class="form-label w-100" for="edittitle">Title</label>
                                 <div class="input-group input-group-merge">
-                                    <input id="edittitle" name="title" class="form-control credit-card-mask" type="text"
-                                        placeholder="Title" aria-describedby="title" required />
+                                    <input id="edittitle" name="title" class="form-control credit-card-mask"
+                                        type="text" placeholder="Title" aria-describedby="title" required />
                                 </div>
                             </div>
 
@@ -169,8 +170,8 @@
                             <div class="col-12">
                                 <label class="form-label w-100" for="editrate">Rate</label>
                                 <div class="input-group input-group-merge">
-                                    <input id="editrate" name="rate" class="form-control credit-card-mask" type="text"
-                                        placeholder="rate" aria-describedby="rate" required />
+                                    <input id="editrate" name="rate" class="form-control credit-card-mask"
+                                        type="text" placeholder="rate" aria-describedby="rate" required />
                                 </div>
                             </div>
                             <div class="col-12 text-center mt-4">

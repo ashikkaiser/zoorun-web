@@ -1,4 +1,5 @@
 @extends('themes.frest.partials.branchPanel.app')
+@section('title', 'Branch - Pickup Parcel List')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">

@@ -1,86 +1,11 @@
 import React from 'react';
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
-import {
-    BookmarkAltIcon,
-    CalendarIcon,
-    ChartBarIcon,
-    CursorClickIcon,
-    MenuIcon,
-    PhoneIcon,
-    PlayIcon,
-    RefreshIcon,
-    ShieldCheckIcon,
-    SupportIcon,
-    ViewGridIcon,
-    XIcon,
-} from '@heroicons/react/outline'
-import { ChevronDownIcon } from '@heroicons/react/solid'
-import {
+import { MenuIcon, XIcon, } from '@heroicons/react/outline'
+import { Link } from "react-router-dom";
 
-    Link
-} from "react-router-dom";
-const solutions = [
-    {
-        name: 'Analytics',
-        description: 'Get a better understanding of where your traffic is coming from.',
-        href: '#',
-        icon: ChartBarIcon,
-    },
-    {
-        name: 'Engagement',
-        description: 'Speak directly to your customers in a more meaningful way.',
-        href: '#',
-        icon: CursorClickIcon,
-    },
-    { name: 'Security', description: "Your customers' data will be safe and secure.", href: '#', icon: ShieldCheckIcon },
-    {
-        name: 'Integrations',
-        description: "Connect with third-party tools that you're already using.",
-        href: '#',
-        icon: ViewGridIcon,
-    },
-    {
-        name: 'Automations',
-        description: 'Build strategic funnels that will drive your customers to convert',
-        href: '#',
-        icon: RefreshIcon,
-    },
-]
-const callsToAction = [
-    { name: 'Watch Demo', href: '#', icon: PlayIcon },
-    { name: 'Contact Sales', href: '#', icon: PhoneIcon },
-]
-const resources = [
-    {
-        name: 'Help Center',
-        description: 'Get all of your questions answered in our forums or contact support.',
-        href: '#',
-        icon: SupportIcon,
-    },
-    {
-        name: 'Guides',
-        description: 'Learn how to maximize our platform to get the most out of it.',
-        href: '#',
-        icon: BookmarkAltIcon,
-    },
-    {
-        name: 'Events',
-        description: 'See what meet-ups and other events we might be planning near you.',
-        href: '#',
-        icon: CalendarIcon,
-    },
-    { name: 'Security', description: 'Understand how we take your privacy seriously.', href: '#', icon: ShieldCheckIcon },
-]
-const recentPosts = [
-    { id: 1, name: 'Boost your conversion rate', href: '#' },
-    { id: 2, name: 'How to use search engine optimization to drive traffic to your site', href: '#' },
-    { id: 3, name: 'Improve your customer experience', href: '#' },
-]
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
+
 
 export const Header = () => {
     return (
@@ -106,161 +31,85 @@ export const Header = () => {
                         </Popover.Button>
                     </div>
                     <Popover.Group as="nav" className="hidden md:flex space-x-10 ">
-                        {/* <Popover className="relative">
-                            {({ open }) => (
-                                <>
-                                    <Popover.Button
-                                        className={classNames(
-                                            open ? 'text-gray-900' : 'text-gray-500',
-                                            'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                                        )}
-                                    >
-                                        <span>Solutions</span>
-                                        <ChevronDownIcon
-                                            className={classNames(
-                                                open ? 'text-gray-600' : 'text-gray-400',
-                                                'ml-2 h-5 w-5 group-hover:text-gray-500'
-                                            )}
-                                            aria-hidden="true"
-                                        />
-                                    </Popover.Button>
 
-                                    <Transition
-                                        as={Fragment}
-                                        enter="transition ease-out duration-200"
-                                        enterFrom="opacity-0 translate-y-1"
-                                        enterTo="opacity-100 translate-y-0"
-                                        leave="transition ease-in duration-150"
-                                        leaveFrom="opacity-100 translate-y-0"
-                                        leaveTo="opacity-0 translate-y-1"
-                                    >
-                                        <Popover.Panel className="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
-                                            <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                                                <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                                                    {solutions.map((item) => (
-                                                        <a
-                                                            key={item.name}
-                                                            href={item.href}
-                                                            className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
-                                                        >
-                                                            <item.icon className="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
-                                                            <div className="ml-4">
-                                                                <p className="text-base font-medium text-gray-900">{item.name}</p>
-                                                                <p className="mt-1 text-sm text-gray-500">{item.description}</p>
-                                                            </div>
-                                                        </a>
-                                                    ))}
-                                                </div>
-                                                <div className="px-5 py-5 bg-gray-50 space-y-6 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
-                                                    {callsToAction.map((item) => (
-                                                        <div key={item.name} className="flow-root">
-                                                            <a
-                                                                href={item.href}
-                                                                className="-m-3 p-3 flex items-center rounded-md text-base font-medium text-gray-900 hover:bg-gray-100"
-                                                            >
-                                                                <item.icon className="flex-shrink-0 h-6 w-6 text-gray-400" aria-hidden="true" />
-                                                                <span className="ml-3">{item.name}</span>
-                                                            </a>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </Popover.Panel>
-                                    </Transition>
-                                </>
-                            )}
-                        </Popover> */}
                         <Link className="text-base font-medium text-gray-500 hover:text-gray-900" to="/enterprise">Enterprise</Link>
                         <Link className="text-base font-medium text-gray-500 hover:text-gray-900" to="/courier">
                             Courier
                         </Link>
 
 
-                        {/* <Popover className="relative">
-                            {({ open }) => (
-                                <>
-                                    <Popover.Button
-                                        className={classNames(
-                                            open ? 'text-gray-900' : 'text-gray-500',
-                                            'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                                        )}
-                                    >
-                                        <span>More</span>
-                                        <ChevronDownIcon
-                                            className={classNames(
-                                                open ? 'text-gray-600' : 'text-gray-400',
-                                                'ml-2 h-5 w-5 group-hover:text-gray-500'
-                                            )}
-                                            aria-hidden="true"
-                                        />
-                                    </Popover.Button>
 
-                                    <Transition
-                                        as={Fragment}
-                                        enter="transition ease-out duration-200"
-                                        enterFrom="opacity-0 translate-y-1"
-                                        enterTo="opacity-100 translate-y-0"
-                                        leave="transition ease-in duration-150"
-                                        leaveFrom="opacity-100 translate-y-0"
-                                        leaveTo="opacity-0 translate-y-1"
-                                    >
-                                        <Popover.Panel className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0">
-                                            <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                                                <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                                                    {resources.map((item) => (
-                                                        <a
-                                                            key={item.name}
-                                                            href={item.href}
-                                                            className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
-                                                        >
-                                                            <item.icon className="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
-                                                            <div className="ml-4">
-                                                                <p className="text-base font-medium text-gray-900">{item.name}</p>
-                                                                <p className="mt-1 text-sm text-gray-500">{item.description}</p>
-                                                            </div>
-                                                        </a>
-                                                    ))}
-                                                </div>
-                                                <div className="px-5 py-5 bg-gray-50 sm:px-8 sm:py-8">
-                                                    <div>
-                                                        <h3 className="text-sm tracking-wide font-medium text-gray-500 uppercase">Recent Posts</h3>
-                                                        <ul role="list" className="mt-4 space-y-4">
-                                                            {recentPosts.map((post) => (
-                                                                <li key={post.id} className="text-base truncate">
-                                                                    <a href={post.href} className="font-medium text-gray-900 hover:text-gray-700">
-                                                                        {post.name}
-                                                                    </a>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                    <div className="mt-5 text-sm">
-                                                        <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                                            {' '}
-                                                            View all posts <span aria-hidden="true">&rarr;</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </Popover.Panel>
-                                    </Transition>
-                                </>
-                            )}
-                        </Popover> */}
                     </Popover.Group>
                     <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                        <Link to='/signin' className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+
+                        <a
+                            className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+                            type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        >
+                            Track Your Order
+                        </a>
+
+                        <Link to='/signin'
+                            className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+
+                        >
                             Sign in
                         </Link>
-                        <a
-                            href="#"
-                            className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-                        >
-                            Sign up
-                        </a>
+
                     </div>
                 </div>
             </div>
+
+
+
+
+            <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+                id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg relative w-auto pointer-events-none">
+                    <div
+                        class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+                        <div
+                            class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+                            <h5 class="text-xl font-medium leading-normal text-gray-800" id="exampleModalLabel">Track Your Order</h5>
+                            <button type="button"
+                                class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                                data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body relative p-4">
+                            <div className=" ">
+                                <div className=" flex rounded-md border-r-0">
+                                    <input type="text" name="company-website" id="company-website" className="border focus:ring-green-500 focus:border-green-500 focus:border flex-1 block w-full   rounded-l sm:text-sm border-gray-300 px-5 " placeholder="পার্সেল আইডি" />
+                                    <span className="inline-flex items-center px-10 py-2 rounded-r-md border-l-0 border-gray-300 bg-green-600  text-lg text-white"> Track</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+                            <button type="button" class="px-6
+          py-2.5
+          bg-red-600
+          text-white
+          font-medium
+          text-xs
+          leading-tight
+          uppercase
+          rounded
+          shadow-md
+          hover:bg-purple-700 hover:shadow-lg
+          focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0
+          active:bg-purple-800 active:shadow-lg
+          transition
+          duration-150
+          ease-in-out" data-bs-dismiss="modal">Cancel</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
 
             <Transition
                 as={Fragment}
@@ -291,16 +140,6 @@ export const Header = () => {
                             </div>
                             <div className="mt-6">
                                 <nav className="grid gap-y-8">
-                                    {/* {solutions.map((item) => (
-                                        <a
-                                            key={item.name}
-                                            href={item.href}
-                                            className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
-                                        >
-                                            <item.icon className="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
-                                            <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span>
-                                        </a>
-                                    ))} */}
                                 </nav>
                             </div>
                         </div>
@@ -329,7 +168,7 @@ export const Header = () => {
                                     href="#"
                                     className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                                 >
-                                    Sign up
+                                    Track Your Order
                                 </a>
                                 <p className="mt-6 text-center text-base font-medium text-gray-500">
                                     Existing customer?{' '}

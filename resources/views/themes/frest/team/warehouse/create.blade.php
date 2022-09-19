@@ -1,5 +1,5 @@
 @extends('themes.frest.layouts.app')
-
+@section('title', 'Admin - Add New Warehouse')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/select2/select2.css') }}" />

@@ -190,7 +190,7 @@ class BookingController extends Controller
                 })
 
                 ->addColumn('action', function ($booking) {
-                    return '<a href="" class="btn btn-primary btn-sm">View</a>';
+                    return '<button type="button" data-bs-target="#viewModal" data-bs-toggle="modal"  parcel_id="' . $booking->id . '" class="btn btn-primary btn-sm view-modal" >View</button>';
                 })
                 ->rawColumns(['status', 'action', 'checkbox', 'reschedule'])
                 ->make(true);

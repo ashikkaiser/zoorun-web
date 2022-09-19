@@ -28,14 +28,9 @@ class AreaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Builder $builder)
+    public function index(Builder $builder, Request $request)
     {
-        $rowData = Area::query()->with('district')->with('zone');
-        if ($request->status === "trash") {
-            $rowData->where('status', false)->get();
-        } else {
-            $rowData->where('status', true)->get();
-        }
+
 
         $districts = District::where('status', true)->get();
         $zones = Zone::where('status', true)->get();
@@ -43,20 +38,36 @@ class AreaController extends Controller
 
 
         if (request()->ajax()) {
-            return DataTables::of($rowData)->addColumn('action', function ($row) use ($districts) {
-                return view('themes.frest.application.area.action', compact('row', 'districts'));
-            })->editColumn('created_at', '{{date("d-M-Y", strtotime($created_at))}}')
+            $rowData = Area::query();
+            if ($request->status === "trash") {
+                $rowData->where('status', false);
+            } else {
+                $rowData->where('status', true);
+            }
+            return
+                DataTables::of($rowData)
+                ->addColumn('action', function ($row) {
+                    return view('themes.frest.application.area.action', compact('row'));
+                })
+                ->editColumn('created_at', '{{date("d-M-Y", strtotime($created_at))}}')
 
                 ->addColumn('status', function ($row) {
                     return view('themes.frest.partials.status', compact('row'));
-                })->toJson();
+                })
+                ->editColumn('zone_id', function ($row) {
+                    return $row->zone->name;
+                })
+                ->editColumn('district_id', function ($row) {
+                    return $row->district->name;
+                })
+                ->make(true);
         }
 
         $html = $builder->columns([
             ['data' => 'id', 'name' => 'id', 'title' => 'Id'],
             ['data' => 'name', 'name' => 'name', 'title' => 'Name'],
-            ['data' => 'zone.name', 'name' => 'zone', 'title' => 'Zone'],
-            ['data' => 'district.name', 'name' => 'district', 'title' => 'District'],
+            ['data' => 'zone_id', 'name' => 'zone_id', 'title' => 'Zone'],
+            ['data' => 'district_id', 'name' => 'district_id', 'title' => 'District'],
             ['data' => 'postal_code', 'name' => 'postal_code', 'title' => 'Postal Code'],
             ['data' => 'status', 'name' => 'status', 'title' => 'Status'],
             ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Created At'],
