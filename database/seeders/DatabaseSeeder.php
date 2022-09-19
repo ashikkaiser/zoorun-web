@@ -16,6 +16,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+        $this->call([
+
+            ParcelStatusSeeder::class,
+            AreaSedder::class,
+
+        ]);
 
         // \App\Models\User::create([
         //     'name' => 'Ashik',
