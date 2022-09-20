@@ -44,6 +44,7 @@ Route::group(['prefix' => 'merchant'], function () {
 
     Route::post('newparcel', [MerchantController::class, 'newParcel']);
     Route::post('getParcels', [MerchantController::class, 'getParcels']);
+    Route::post('orderTracking', [MerchantController::class, 'orderTracking']);
 });
 
 Route::group(['prefix' => 'rider'], function () {

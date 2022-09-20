@@ -142,13 +142,13 @@ class WeightPackageController extends Controller
         ]);
 
         //check the name
-        $ifExistName = WeightPackage::where('name', $data['name'])->first();
+        // $ifExistName = WeightPackage::where('name', $data['name'])->first();
 
-        if ($ifExistName) {
-            if ($ifExistName->id != $id) {
-                return redirect()->back()->with('error', 'Weight Package already existed');
-            }
-        }
+        // if ($ifExistName) {
+        //     if ($ifExistName->id != $id) {
+        //         return redirect()->back()->with('error', 'Weight Package already existed');
+        //     }
+        // }
 
         $ifExist = WeightPackage::where('id', $id)->first();
 

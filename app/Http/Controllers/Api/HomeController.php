@@ -81,7 +81,8 @@ class HomeController extends Controller
         $merchant->company = $request->company;
         $merchant->branch_id = $branch->id;
         $merchant->service_area_id = json_encode(array());
-        $merchant->status = false;
+        $merchant->status = true;
+        $merchant->is_active = 'pending';
 
         if ($merchant->save()) {
             $user = User::firstOrNew(['user_type' => 'merchant', 'merchant_id' => $merchant->id, 'email' => $request->email]);

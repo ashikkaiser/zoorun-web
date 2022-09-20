@@ -112,6 +112,7 @@ class MerchantController extends Controller
 
 
         $merchant->status = true;
+        $merchant->is_active = $request->is_active;
         if ($merchant->save()) {
             $user = User::firstOrNew(['user_type' => 'merchant', 'merchant_id' => $merchant->id, 'email' => $request->email]);
             $user->user_type = 'merchant';
@@ -121,8 +122,14 @@ class MerchantController extends Controller
             $user->email = $request->email;
             $user->username = $request->email;
             $user->phone = $request->phone;
-            $user->password = Hash::make($request->password);
-            $user->status = true;
+            if ($request->password) {
+                $user->password = Hash::make($request->password);
+            }
+            if ($merchant->is_active === 'active') {
+                $user->status = true;
+            } else {
+                $user->status = false;
+            }
             $user->save();
             $merchant->user_id = $user->id;
             $merchant->save();

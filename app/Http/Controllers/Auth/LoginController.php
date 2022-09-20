@@ -76,7 +76,7 @@ class LoginController extends Controller
                 ]);
             }
 
-            if (auth()->user()->user_type === "merchant") {
+            if (auth()->user()->user_type === "merchant" && auth()->user()->status === true) {
                 // return redirect()->route('merchant.dashboard');
                 return response()->json([
                     'success' => true,

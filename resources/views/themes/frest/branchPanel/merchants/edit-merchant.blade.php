@@ -1,5 +1,5 @@
-@extends('themes.frest.layouts.app')
-@section('title', 'Admin - Edit Merchant')
+@extends('themes.frest.partials.branchPanel.app')
+@section('title', 'Branch - Edit Merchant')
 
 
 @section('css')
@@ -14,6 +14,7 @@
 @endsection
 
 @section('content')
+
     <!-- Users List Table -->
     <div class="card">
 
@@ -21,7 +22,7 @@
 
         <div class="card-header">
             <h5 class="card-title">Edit New Merchant</h5>
-            <a href="{{ route('admin.team.merchant') }}" class="btn btn-sm btn-primary"> <span
+            <a href="{{ route('branch.merchant.list') }}" class="btn btn-sm btn-primary"> <span
                     class="tf-icon bx bx-left-arrow-alt bx-xs"></span>Go back</a>
         </div>
     </div>
@@ -33,7 +34,7 @@
             </div>
             <div class="card-body">
                 <form class="form" method="POST" id="jquery-val-form" enctype="multipart/form-data"
-                    action="{{ route('admin.team.merchant.modify') }}" novalidate="novalidate">
+                    action="{{ route('branch.merchant.update') }}" novalidate="novalidate">
                     @csrf
                     <input type="hidden" name="id" value="{{ $merchant->id }}">
                     <div class="form-body">
@@ -63,68 +64,27 @@
                                     spellcheck="false" style="color: rgb(48, 65, 86);">{{ $merchant->company_address }}</textarea>
                             </div>
 
-                            <div class="col-md-3 col-12 mb-3">
-                                <label class="form-label" for="district_id">District</label>
-                                <select class="district_id form-control select2" name="district_id" data-allow-clear="true"
-                                    data-placeholder='Select District' id="district" required>
-                                    <option value="">Select District</option>
-                                    @foreach ($districts as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-3 col-12 mb-3">
-                                <label class="form-label" for="zone_id">Zone</label>
-                                <div class="form-group">
-                                    <select class="select2 form-control zone_id" name="zone_id" id="zone"
-                                        data-allow-clear="true" data-placeholder="Select Zone" required>
-                                        <option value="">Select Zone</option>
-                                    </select>
-                                </div>
-                            </div>
 
-                            <div class="col-md-3 col-12 mb-3">
-                                <label class="form-label" for="area_id">Area</label>
-                                <div class="form-group">
-                                    <select class="form-control area_id select2" name="area_id" id="area"
-                                        data-allow-clear="true" data-placeholder="Select Area" required>
-                                        <option value="">Select Area</option>
 
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-12 mb-3">
-                                <label class="form-label" for="branch_id">Branch</label>
-                                <div class="form-group">
-                                    <select class="form-control branch_id select2" name="branch_id" required
-                                        data-allow-clear="true" data-placeholder="Select Branch">
-                                        <option value="">Select Branch</option>
-                                        @foreach ($branchs as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @endforeach
-
-                                    </select>
-                                </div>
-                            </div>
                             <div class="col-md-4 col-12 mb-3">
                                 <label class="form-label" for="phone">Contact Number</label>
                                 <div class="input-group">
-                                    <input type="text" id="phone" class="form-control" name="phone" required
-                                        placeholder="Contact Number">
+                                    <input type="text" id="phone" value="{{ $merchant->phone }}"
+                                        class="form-control" name="phone" required placeholder="Contact Number">
                                 </div>
                             </div>
                             <div class="col-md-4 col-12 mb-3">
                                 <label class="form-label" for="facebook">Facebook URL</label>
                                 <div class="input-group">
-                                    <input type="text" id="facebook" class="form-control" name="facebook"
-                                        placeholder="Facebook URL">
+                                    <input type="text" id="facebook" value="{{ $merchant->facebook }}"
+                                        class="form-control" name="facebook" placeholder="Facebook URL">
                                 </div>
                             </div>
                             <div class="col-md-4 col-12 mb-3">
                                 <label class="form-label" for="website">Website URL</label>
                                 <div class="input-group">
-                                    <input type="text" id="website" class="form-control" name="website"
-                                        placeholder="Website URL">
+                                    <input type="text" id="website" value="{{ $merchant->website }}"
+                                        class="form-control" name="website" placeholder="Website URL">
                                 </div>
                             </div>
                             <div class="col-md-6 col-12 mb-3">
@@ -136,26 +96,19 @@
                             <div class="col-md-6 col-12 mb-3">
                                 <label class="form-label" for="cod_charge">COD %</label>
                                 <div class="input-group">
-                                    <input type="text" id="cod_charge" class="form-control" name="cod_charge"
-                                        placeholder="COD %">
+                                    <input type="text" id="cod_charge" value="{{ $merchant->cod_charge }}"
+                                        class="form-control" name="cod_charge" placeholder="COD %">
 
                                 </div>
                             </div>
-                            <div class="col-md-4 col-12 mb-3">
+                            <div class="col-md-6 col-12 mb-3">
                                 <label class="form-label" for="email">Email</label>
                                 <div class="input-group">
-                                    <input type="email" id="email" class="form-control" name="email" required
-                                        placeholder="Email">
+                                    <input type="email" id="email" value="{{ $merchant->email }}"
+                                        class="form-control" name="email" required placeholder="Email">
                                 </div>
                             </div>
-                            <div class="col-md-4 col-12 mb-3">
-                                <label class="form-label" for="password">Password</label>
-                                <div class="input-group">
-                                    <input type="text" id="password" class="form-control" name="password" required
-                                        placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-12 mb-3">
+                            <div class="col-md-6 col-12 mb-3">
                                 <label class="form-label" for="email">Status</label>
                                 <select name="is_active" class="form-select">
                                     <option value="pending" {{ $merchant->is_active == 'pending' ? 'selected' : '' }}>
@@ -167,6 +120,13 @@
                                         Inactive</option>
                                 </select>
                             </div>
+                            {{-- <div class="col-md-6 col-12 mb-3">
+                                <label class="form-label" for="password">Password</label>
+                                <div class="input-group">
+                                    <input type="text" id="password" class="form-control" name="password" required
+                                        placeholder="Password">
+                                </div>
+                            </div> --}}
                         </div>
                         <hr />
 
@@ -226,8 +186,8 @@
                                 <label class="form-label" for="bank_acc_name">Bank Account Name</label>
 
                                 <div class="input-group">
-                                    <input type="text" id="bank_acc_name" class="form-control" name="bank_acc_name"
-                                        placeholder="Bank Account Name">
+                                    <input type="text" id="bank_acc_name" value="{{ $merchant->bank_acc_name }}"
+                                        class="form-control" name="bank_acc_name" placeholder="Bank Account Name">
 
 
                                 </div>
@@ -238,7 +198,8 @@
                                 <div class="input-group">
 
                                     <input type="text" id="bank_acc_number" class="form-control"
-                                        name="bank_acc_number" placeholder="Bank Account Number">
+                                        name="bank_acc_number" value="{{ $merchant->bank_acc_number }}"
+                                        placeholder="Bank Account Number">
 
                                 </div>
                             </div>
@@ -246,8 +207,8 @@
                                 <label class="form-label" for="bank_name">Bank Name</label>
 
                                 <div class="input-group">
-                                    <input type="text" id="bank_name" class="form-control" name="bank_name"
-                                        placeholder="Bank Name">
+                                    <input type="text" id="bank_name" value="{{ $merchant->bank_name }}"
+                                        class="form-control" name="bank_name" placeholder="Bank Name">
 
 
                                 </div>
@@ -257,8 +218,8 @@
 
                                 <div class="input-group">
 
-                                    <input type="text" id="bkash" class="form-control" name="bkash"
-                                        placeholder="BKash Number">
+                                    <input type="text" id="bkash" class="form-control"
+                                        value="{{ $merchant->bkash }}" name="bkash" placeholder="BKash Number">
 
                                 </div>
                             </div>
@@ -267,8 +228,8 @@
 
                                 <div class="input-group">
 
-                                    <input type="text" id="nagad" class="form-control" name="nagad"
-                                        placeholder="Nagad Number">
+                                    <input type="text" id="nagad" value="{{ $merchant->nagad }}"
+                                        class="form-control" name="nagad" placeholder="Nagad Number">
 
                                 </div>
                             </div>
@@ -277,8 +238,8 @@
 
                                 <div class="input-group">
 
-                                    <input type="text" id="rocket" class="form-control" name="rocket"
-                                        placeholder="Rocket Number">
+                                    <input type="text" id="rocket" value="{{ $merchant->rocket }}"
+                                        class="form-control" name="rocket" placeholder="Rocket Number">
 
                                 </div>
                             </div>

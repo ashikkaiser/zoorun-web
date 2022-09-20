@@ -72,6 +72,8 @@ class Parcel extends Model
     }
 
 
+
+
     // public function riderRun()
     // {
     //     return $this->belongsTo(RiderRun::class);

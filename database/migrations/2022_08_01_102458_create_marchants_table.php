@@ -42,7 +42,8 @@ return new class extends Migration
             $table->string('trade_license_image_url')->nullable();
             $table->string('tin_certificate_image_url')->nullable();
             $table->string('profile_image')->nullable();
-            $table->boolean("status");
+            $table->boolean("status")->default(true);
+            $table->enum('is_active', ['active', 'inactive', 'pending'])->default('pending');
             $table->timestamps();
         });
     }

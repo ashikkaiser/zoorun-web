@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Merchant extends Model
 {
     use HasFactory;
+
+    public function ScopeActive($item)
+    {
+        return $item->where('status', true);
+    }
+
+
     public function district()
     {
         return $this->belongsTo(District::class);

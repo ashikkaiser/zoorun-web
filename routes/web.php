@@ -186,6 +186,8 @@ Route::group(
         Route::get('/profile', [\App\Http\Controllers\Branch\ProfileController::class, 'index'])->name('profile');
         Route::get('/order/tracking', [\App\Http\Controllers\Branch\PageController::class, 'orderTrack'])->name('order.track');
         Route::get('/merchant/list-by-branch', [\App\Http\Controllers\Branch\PageController::class, 'merchantList'])->name('merchant.list');
+        Route::post('/merchant/modify', [\App\Http\Controllers\Branch\PageController::class, 'modifyMerchant'])->name("merchant.update");
+        Route::get('/merchant/edit/{id}', [\App\Http\Controllers\Branch\PageController::class, 'editMerchant'])->name("merchant.edit");
         Route::get('/rider/list-by-branch', [\App\Http\Controllers\Branch\PageController::class, 'riderList'])->name('rider.list');
         Route::get('/transfer/list', [\App\Http\Controllers\Branch\BranchTransferController::class, 'index'])->name('transfer.list');
         Route::group(['prefix' => 'parcel', 'as' => 'parcel.'], function () {

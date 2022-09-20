@@ -8,14 +8,17 @@ use App\Models\Branch;
 use App\Models\District;
 use App\Models\ItemCategory;
 use App\Models\Parcel;
+use App\Models\ParcelHistory;
 use App\Models\ParcelStatus;
 use App\Models\PickupAddress;
 use App\Models\User;
 use App\Models\WeightPackage;
 use App\Models\Zone;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class MerchantController extends Controller
 {
@@ -145,5 +148,29 @@ class MerchantController extends Controller
     {
         $parcels = Parcel::merchantParcels()->orderBy('id', 'desc')->get();
         return $parcels;
+    }
+    public function orderTracking(Request $request)
+    {
+        $parcel_id = Str::upper($request->parcel_id);
+        $parcel = Parcel::where('parcel_id', $parcel_id)->first();
+        if ($parcel) {
+            $history = ParcelHistory::with('message')->where('parcel_id', $parcel->id)->get();
+            // $parcelx =
+            //     array_merge(
+            //         $parcel->toArry(),
+            //         ['histories' => $history]
+            //     );
+            return response()->json([
+                'success' => true,
+                'data' => ['parcel' => $parcel, 'history' => $history],
+
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "parcel not found",
+                'ss' => $parcel_id
+            ]);
+        }
     }
 }
