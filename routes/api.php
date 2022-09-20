@@ -27,6 +27,10 @@ Route::group(['prefix' => 'web'], function () {
     Route::any('get_weight_package', [HomeController::class, 'get_weight_package']);
     Route::any('service_areas', [HomeController::class, 'service_areas']);
     Route::any('geta_areas', [HomeController::class, 'geta_areas']);
+    Route::any('get_districts', [HomeController::class, 'get_districts']);
+    Route::any('get_area', [HomeController::class, 'get_area']);
+    Route::any('become_a_merchant', [HomeController::class, 'become_a_merchant']);
+    Route::any('service_charge', [HomeController::class, 'get_service_charge']);
 });
 Route::group(['prefix' => 'merchant'], function () {
     Route::post('login', [AuthController::class, 'login']);

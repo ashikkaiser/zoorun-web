@@ -120,6 +120,7 @@ class MerchantController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->username = $request->email;
+            $user->phone = $request->phone;
             $user->password = Hash::make($request->password);
             $user->status = true;
             $user->save();

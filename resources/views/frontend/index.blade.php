@@ -28,6 +28,16 @@
     {{-- @vite('resources/css/app.css') --}}
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <title>Zoorun</title>
+    <style>
+        .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+            position: relative;
+            background-color: transparent !important;
+            border: 0px !important;
+            border-radius: 0px !important;
+            transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+            box-shadow: none !important;
+        }
+    </style>
 </head>
 
 <body>

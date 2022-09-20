@@ -49,6 +49,12 @@
                             </a>
                         </li>
                         <li
+                            class="menu-item {{ request()->route()->getName() === 'warehouse.transfar.operation'? 'active': '' }}">
+                            <a href="{{ route('warehouse.transfar.send.operation') }}" class="menu-link">
+                                <div data-i18n="eCommerce">Transfar Parcel Operation</div>
+                            </a>
+                        </li>
+                        <li
                             class="menu-item {{ request()->route()->getName() === 'warehouse.booking.returnOperation'? 'active': '' }}">
                             <a href="{{ route('warehouse.booking.returnOperation') }}" class="menu-link">
                                 <div data-i18n="eCommerce">Return Parcel Operation</div>

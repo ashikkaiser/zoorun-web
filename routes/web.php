@@ -31,6 +31,7 @@ use App\Http\Controllers\Rider\ProfileController as RiderProfileController;
 use App\Http\Controllers\Rider\RiderDashboardController;
 use App\Http\Controllers\Warehouse\BookingController as WarehouseBookingController;
 use App\Http\Controllers\Warehouse\ProfileController as WarehouseProfileController;
+use App\Http\Controllers\Warehouse\TransfarController;
 use App\Http\Controllers\Warehouse\WarehouseDashboardController;
 
 /*
@@ -57,6 +58,9 @@ Route::get("/signin", function () {
     return view("frontend.index");
 });
 Route::get("/coverage-area", function () {
+    return view("frontend.index");
+});
+Route::get("/become-a-merchant", function () {
     return view("frontend.index");
 });
 
@@ -293,6 +297,8 @@ Route::group(['prefix' => 'warehouse', 'as' => 'warehouse.'], function () {
     Route::post('/booking/ajax_get_parcels_by_riders', [WarehouseBookingController::class, 'ajax_get_parcels_by_riders'])->name('booking.ajax_get_parcels_by_riders');
     Route::get('/booking/operation', [WarehouseBookingController::class, 'operation'])->name('booking.operation');
     Route::get('/booking/return_operation', [WarehouseBookingController::class, 'returnOperation'])->name('booking.returnOperation');
+    Route::get('/transfar/send/operation', [TransfarController::class, 'send'])->name('transfar.send.operation');
+    Route::get('/transfar/recieve/operation', [TransfarController::class, 'recieve'])->name('transfar.recieve.operation');
 });
 Route::get('/lost', function () {
     return view('themes.frest.extra.lost');

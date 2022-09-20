@@ -12,9 +12,9 @@ export const Header = () => {
 
 
     return (
-        <Popover className="relative bg-white">
+        <Popover className="relative bg-white border-b-2 border-gray-100">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
-                <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+                <div className="flex justify-between items-center  py-2 md:justify-start md:space-x-10">
                     <div className="flex justify-start">
                         <Link to="/">
 
@@ -53,10 +53,12 @@ export const Header = () => {
                         </a>
 
                         <Link to='/signin'
-                            className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                        // className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
 
                         >
-                            Sign in
+                            <button type="button" class="ml-8 text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2 text-center mr-2  dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">Sign in</button>
+
+
                         </Link>
 
                     </div>
