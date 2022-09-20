@@ -4,12 +4,18 @@ namespace App\Http\Controllers\Api\Merchant;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\Branch;
 use App\Models\District;
 use App\Models\ItemCategory;
+use App\Models\Parcel;
+use App\Models\ParcelStatus;
 use App\Models\PickupAddress;
+use App\Models\User;
 use App\Models\WeightPackage;
 use App\Models\Zone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class MerchantController extends Controller
 {
@@ -42,5 +48,102 @@ class MerchantController extends Controller
         $areas = Area::where('status', true)->where('district_id', $district)
             ->where('name', 'ILIKE', '%' . $request->search . '%')->get();
         return $areas;
+    }
+
+
+    public function getpickupaddress(Request $request)
+    {
+        $pickupAddress = PickupAddress::where('merchant_id', $request->merchant_id)->get();
+        return $pickupAddress;
+    }
+    public function modifypickupaddress(Request $request)
+    {
+
+        $data = $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'district_id' => 'required',
+            'zone_id' => 'required',
+            'area_id' => 'required',
+            'phone' => 'required'
+        ]);
+        $area = Area::find($request->area_id);
+        $pickup_address = PickupAddress::findOrNew($request->id);
+        $pickup_address->merchant_id = $request->merchant_id;
+        $pickup_address->name = $request->name;
+        $pickup_address->address = $request->address;
+        $pickup_address->district_id = $request->district_id;
+        $pickup_address->zone_id = $area->zone_id;
+        $pickup_address->area_id = $request->area_id;
+        $pickup_address->phone = $request->phone;
+        $pickup_address->alt_phone = $request->alt_phone;
+        $pickup_address->status = true;
+        $pickup_address->save();
+        if ($request->id) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Pickup Address Updated Successfully',
+            ]);
+        }
+        return response()->json([
+            'status' => true,
+            'message' => 'Pickup Address Added Successfully'
+        ]);
+    }
+
+
+
+    public function newParcel(Request $request)
+    {
+        $last_id = Parcel::latest('id')->first();
+        $id = isset($last_id) ? $last_id->id  : 0;
+        $total = delevery_charge_calculation(
+            $request->area_id,
+            $request->weight_package_id,
+            $request->delivery_type,
+            $request->category_id,
+            $request->collection_amount
+        );
+        $area = Area::find($request->area_id);
+        $destination_branch_id = Branch::where('zone_ids', 'like', '%' . $area->zone_id . '%')->first()->id;
+
+        $parcel = new Parcel();
+        $parcel->parcel_id = "ZCS" . date("ymd") . Auth::user()->id . $id;
+        $parcel->merchant_id = User::find(auth()->user()->id)->merchant->id;
+        $parcel->customer_name = $request->customer_name;
+        $parcel->customer_phone = $request->customer_phone;
+        $parcel->delivery_address = $request->delivery_address;
+        $parcel->district_id = $request->district_id;
+        $parcel->zone_id = $area->zone_id;
+        $parcel->area_id = $request->area_id;
+        $parcel->delivery_type = $request->delivery_type;
+        $parcel->destination_branch_id = $destination_branch_id;
+        $parcel->branch_id = Auth::user()->branch_id;
+        $parcel->merchant_order_id = $request->merchant_order_id;
+        $parcel->delivery_charge = $total['delevery_charge'];
+        $parcel->product_amount = $request->product_amount;
+        $parcel->product_details = $request->product_details;
+        $parcel->pickup_address_id = $request->pickup_address_id;
+        $parcel->collection_amount = $request->collection_amount;
+        $parcel->category_id = $request->category_id;
+        $parcel->remarks = $request->remarks;
+        $parcel->status = 'pickup-pending';
+        $parcel->total = $total['total'];
+        if ($parcel->save()) {
+            $history = new \App\Models\ParcelHistory();
+            $history->parcel_id = $parcel->id;
+            $history->status_id = ParcelStatus::where('key', 'pickup-pending')->first()->id;
+            $history->save();
+            return response()->json([
+                'status' => true,
+                'message' => 'Parcel Created Successfully',
+            ]);
+        }
+    }
+
+    public function getParcels(Request $request)
+    {
+        $parcels = Parcel::merchantParcels()->orderBy('id', 'desc')->get();
+        return $parcels;
     }
 }

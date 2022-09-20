@@ -60,18 +60,18 @@
                             </a>
                         </li>
 
-                        {{-- <li
-                            class="menu-item {{ request()->route()->getName() === 'branch.parcel.transfer.generate'? 'active': '' }}">
-                            <a href="{{ route('branch.parcel.transfer.generate') }}" class="menu-link">
-                                <div data-i18n="Analytics">Generate Branch Transfer</div>
+                        <li
+                            class="menu-item {{ request()->route()->getName() === 'branch.parcel.transfer.list'? 'active': '' }}">
+                            <a href="{{ route('branch.transfer.list') }}" class="menu-link">
+                                <div data-i18n="Analytics">Branch Transfer List</div>
                             </a>
                         </li>
                         <li
                             class="menu-item {{ request()->route()->getName() === 'branch.parcel.transfer.list'? 'active': '' }}">
-                            <a href="{{ route('branch.parcel.transfer.list') }}" class="menu-link">
+                            <a href="" class="menu-link">
                                 <div data-i18n="Analytics">Delivery Branch Transfer List</div>
                             </a>
-                        </li> --}}
+                        </li>
                     </ul>
                 </li>
                 <li class="menu-item  {{ strpos(\Request::path(), '/parcel/delivery') !== false ? 'open' : '' }}">

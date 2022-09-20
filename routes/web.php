@@ -56,6 +56,9 @@ Route::get("/courier", function () {
 Route::get("/signin", function () {
     return view("frontend.index");
 });
+Route::get("/coverage-area", function () {
+    return view("frontend.index");
+});
 
 
 
@@ -180,6 +183,7 @@ Route::group(
         Route::get('/order/tracking', [\App\Http\Controllers\Branch\PageController::class, 'orderTrack'])->name('order.track');
         Route::get('/merchant/list-by-branch', [\App\Http\Controllers\Branch\PageController::class, 'merchantList'])->name('merchant.list');
         Route::get('/rider/list-by-branch', [\App\Http\Controllers\Branch\PageController::class, 'riderList'])->name('rider.list');
+        Route::get('/transfer/list', [\App\Http\Controllers\Branch\BranchTransferController::class, 'index'])->name('transfer.list');
         Route::group(['prefix' => 'parcel', 'as' => 'parcel.'], function () {
             Route::get('pickup/list', [PickupParcelController::class, 'index'])->name('pickup.list');
             Route::get('pickup/pacel/view/{id}', [PickupParcelController::class, 'viewModal'])->name('pickup.viewModal');
@@ -189,7 +193,7 @@ Route::group(
             Route::post('pickup/generate/start/{id}', [PickupParcelController::class, 'riderRunStart'])->name('pickup.generate.start');
             Route::get('pickup/rider/list', [PickupParcelController::class, 'pickupRiderList'])->name('pickup.rider.list');
             Route::get('pickup/transfer/generate', [PickupParcelController::class, 'generateBranchTransfer'])->name('transfer.generate');
-            Route::get('pickup/transfer/list', [PickupParcelController::class, 'deliveryBrachTransferList'])->name('transfer.list');
+            // Route::get('pickup/transfer/list', [PickupParcelController::class, 'deliveryBrachTransferList'])->name('transfer.list');
 
             //Delivery Parcel
             Route::get('delivery/list', [DeliveryParcelController::class, 'index'])->name('delivery.list');

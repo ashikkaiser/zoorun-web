@@ -205,22 +205,22 @@ class PickupParcelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deliveryBrachTransferList(Builder $builder)
-    {
-        $html = $builder->columns([
-            ['data' => 'id', 'name' => 'id', 'title' => 'ID'],
-            ['data' => 'name', 'name' => 'name', 'title' => 'Consignment'],
-            ['data' => 'sl_no', 'name' => 'sl_no', 'title' => 'Branch Name'],
-            ['data' => 'number', 'name' => 'number', 'title' => 'Branch Address'],
-            ['data' => 'number', 'name' => 'number', 'title' => 'Branch Phone'],
-            ['data' => 'number', 'name' => 'number', 'title' => 'Created Date'],
-            ['data' => 'number', 'name' => 'number', 'title' => 'Complete Date'],
-            ['data' => 'number', 'name' => 'number', 'title' => 'Transfer Parcel'],
-            ['data' => 'number', 'name' => 'number', 'title' => 'Complete Parcel'],
-            ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Action'],
-        ]);
-        return view('themes.frest.branchPanel.pickup-percel.delivery-branch-transfer-list', compact('html'));
-    }
+    // public function deliveryBrachTransferList(Builder $builder)
+    // {
+    //     $html = $builder->columns([
+    //         ['data' => 'id', 'name' => 'id', 'title' => 'ID'],
+    //         ['data' => 'name', 'name' => 'name', 'title' => 'Consignment'],
+    //         ['data' => 'sl_no', 'name' => 'sl_no', 'title' => 'Branch Name'],
+    //         ['data' => 'number', 'name' => 'number', 'title' => 'Branch Address'],
+    //         ['data' => 'number', 'name' => 'number', 'title' => 'Branch Phone'],
+    //         ['data' => 'number', 'name' => 'number', 'title' => 'Created Date'],
+    //         ['data' => 'number', 'name' => 'number', 'title' => 'Complete Date'],
+    //         ['data' => 'number', 'name' => 'number', 'title' => 'Transfer Parcel'],
+    //         ['data' => 'number', 'name' => 'number', 'title' => 'Complete Parcel'],
+    //         ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Action'],
+    //     ]);
+    //     return view('themes.frest.branchPanel.pickup-percel.delivery-branch-transfer-list', compact('html'));
+    // }
 
     /**
      * Update the specified resource in storage.

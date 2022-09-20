@@ -8,6 +8,9 @@ import { Link } from "react-router-dom";
 
 
 export const Header = () => {
+
+
+
     return (
         <Popover className="relative bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -30,7 +33,7 @@ export const Header = () => {
                             <MenuIcon className="h-6 w-6" aria-hidden="true" />
                         </Popover.Button>
                     </div>
-                    <Popover.Group as="nav" className="hidden md:flex space-x-10 ">
+                    {/* <Popover.Group as="nav" className="hidden md:flex space-x-10 ">
 
                         <Link className="text-base font-medium text-gray-500 hover:text-gray-900" to="/enterprise">Enterprise</Link>
                         <Link className="text-base font-medium text-gray-500 hover:text-gray-900" to="/courier">
@@ -39,7 +42,7 @@ export const Header = () => {
 
 
 
-                    </Popover.Group>
+                    </Popover.Group> */}
                     <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
 
                         <a

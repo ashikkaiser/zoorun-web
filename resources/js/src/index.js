@@ -9,15 +9,13 @@ import {
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Enterprise, Home, Courier, Login, } from './pages/index';
+import { Enterprise, Home, Courier, Login, Coverage } from './pages/index';
 import { Layout } from './components';
 
 function Main() {
     return (
 
         <Router>
-
-
 
             <Switch>
                 <Route exact path="/signin" component={Login} />
@@ -26,6 +24,7 @@ function Main() {
                     <Route exact path="/" component={Home} />
                     <Route exact path="/enterprise" component={Enterprise} />
                     <Route exact path="/courier" component={Courier} />
+                    <Route exact path="/coverage-area" component={Coverage} />
                 </Layout>
 
 

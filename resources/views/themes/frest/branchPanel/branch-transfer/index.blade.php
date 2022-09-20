@@ -1,8 +1,10 @@
 @extends('themes.frest.partials.branchPanel.app')
-@section('title', 'Branch Generate Delivery Parcel List')
+@section('title', 'Branch - Transfer Parcel List')
+
 @section('css')
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}">
+    <link rel="stylesheet" href="{{ asset('frest/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css') }}">
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/select2/select2.css') }}" />
     <link rel="stylesheet" href="{{ asset('frest/vendor/libs/formvalidation/dist/css/formValidation.min.css') }}" />
 @endsection
@@ -14,43 +16,46 @@
     <script src="/frest/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
     <script src="/frest/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
     <script src="/frest/vendor/libs/select2/select2.js"></script>
-    {!! $dataTable->scripts() !!}
+    {{ $dataTable->scripts() }}
 @endsection
 
 
 @section('content')
+    <!-- Merchnat List Table -->
     <div class="card">
 
         @include('themes.frest.partials.alerts')
+
         <div class="card-header border-bottom d-flex">
-            <h5 class="card-title">Delivery Parcel List</h5>
+            <h5 class="card-title">Branch Transfer List</h5>
         </div>
-        <div class="card-datatable table-responsive no-wrap">
-            {!! $dataTable->table(['class' => 'datatables-users table border-top']) !!}
+
+        <div class="card-datatable table-responsive text-nowrap">
+            {{ $dataTable->table(['class' => 'datatables-users table border-top']) }}
         </div>
+
+
+
     </div>
 @endsection
 
 @section('inline-js')
     <script>
-        // function statusChange(id, status) {
-        //     var url = "{{ route('branch.parcel.delivery.status', ':id') }}";
-        //     url = url.replace(':id', id);
-        //     $.ajax({
-        //         url: url,
-        //         type: 'POST',
-        //         data: {
-        //             _token: "{{ csrf_token() }}",
-        //             type: status
-        //         },
-        //         success: function(data) {
-        //             if (data.success) {
-        //                 $('#delivery-table').DataTable().ajax.reload();
-        //             } else {
-        //                 alert(data.message);
-        //             }
-        //         }
-        //     });
-        // }
+        function statusChange(id, status) {
+
+            var url = "{{ route('branch.parcel.pickup.status', ':id') }}";
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    type: status
+                },
+                success: function(data) {
+                    $('#pickup-table').DataTable().ajax.reload();
+                }
+            });
+        }
     </script>
 @endsection

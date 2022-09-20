@@ -1,6 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export const DeliveryCalculator = () => {
+    const [weight, setWeight] = React.useState([]);
+
+    useEffect(() => {
+        fetch('/api/web/get_weight_package')
+            .then(response => response.json())
+            .then(data => setWeight(data));
+    }, []);
+
+    const searchLocation = (e) => {
+
+    }
+
+
+    console.log(weight);
+
+
     return (
         <div className='my-20 container mx-auto flex items-center justify-center px-5 sm:px-5 md:px-0 lg:px-0'>
             <div className="mt-10 w-full sm:w-full md:w-1/2	lg:w-1/2">
@@ -9,7 +25,14 @@ export const DeliveryCalculator = () => {
                 <div className="grid grid-cols-6 gap-6 mt-10">
                     <div className="col-span-6 sm:col-span-3">
                         <label for="wight" className="block text-sm font-medium text-gray-700">পণ্যের ওজন ( সর্বোচ্চ 10 কেজি )</label>
-                        <input type="text" name="wight" id="first-name" autocomplete="given-name" className=" border-gray-300 border p-3 mt-1   focus:border-green-500 block w-full shadow-sm sm:text-sm focus:border rounded-md" placeholder='পণ্যের ওজন লিখুন ' />
+                        <select id="wight" name="wight" autocomplete="wight" className="mt-1 block w-full p-3 mt-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option>ওজন নির্বাচন করুন</option>
+                            {weight.length !== 0 && weight.map((item, index) => (
+                                <option key={index} value={item.id}>{item.name}</option>
+
+                            ))}
+                        </select>
+                        {/* <input type="text" name="wight" id="first-name" autocomplete="given-name" className=" border-gray-300 border p-3 mt-1   focus:border-green-500 block w-full shadow-sm sm:text-sm focus:border rounded-md" placeholder='পণ্যের ওজন লিখুন ' /> */}
                     </div>
                     <div className="col-span-6 sm:col-span-3">
                         <label for="wight" className="block text-sm font-medium text-gray-700">পণ্যের বিক্রয়মূল্য</label>

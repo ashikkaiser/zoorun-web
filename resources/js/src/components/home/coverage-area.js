@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import bdMap from '../../assets/image/home/bangladash-map.svg'
 
 
@@ -13,7 +14,12 @@ export const CoverageArea = () => {
                     <div>
                         <p className='text-4xl font-bold my-5' > Zoorun লজিস্টিকস সেবা সারাদেশে ৬৪ জেলা এবং ৪৯৩ উপজেলা জুড়ে বিস্তৃত</p>
                         <p className='text-xl font-semibold my-5'>আপনার যেকোনো লজিস্টিকস প্রয়োজনের জন্য আমরা নিশ্চিত করি দেশজুড়ে সবচেয়ে দ্রুতগতির সেবা</p>
-                        <button className='bg-green-500 text-white w-72 py-3 font-bold my-4 rounded' >কভারেজ এলাকা দেখুন </button>
+
+                        <Link to={'/coverage-area'}>
+                            <button className='bg-green-500 text-white w-72 py-3 font-bold my-4 rounded' >কভারেজ এলাকা দেখুন </button>
+
+                        </Link>
+
                     </div>
 
                 </div>

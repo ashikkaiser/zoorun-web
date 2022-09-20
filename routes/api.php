@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\Merchant\AuthController;
 use App\Http\Controllers\Api\Merchant\MerchantController;
 use App\Http\Controllers\Api\Rider\AuthController as RiderAuthController;
@@ -22,8 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-
+Route::group(['prefix' => 'web'], function () {
+    Route::any('get_weight_package', [HomeController::class, 'get_weight_package']);
+    Route::any('service_areas', [HomeController::class, 'service_areas']);
+    Route::any('geta_areas', [HomeController::class, 'geta_areas']);
+});
 Route::group(['prefix' => 'merchant'], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
@@ -31,6 +35,11 @@ Route::group(['prefix' => 'merchant'], function () {
     Route::post('me', [AuthController::class, 'me']);
     Route::post('create', [MerchantController::class, 'create']);
     Route::post('getarea', [MerchantController::class, 'getarea']);
+    Route::post('getpickupaddress', [MerchantController::class, 'getpickupaddress']);
+    Route::post('modifypickupaddress', [MerchantController::class, 'modifypickupaddress']);
+
+    Route::post('newparcel', [MerchantController::class, 'newParcel']);
+    Route::post('getParcels', [MerchantController::class, 'getParcels']);
 });
 
 Route::group(['prefix' => 'rider'], function () {

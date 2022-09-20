@@ -18,6 +18,10 @@ class Parcel extends Model
     {
         return $query->where('branch_id', auth()->user()->branch_id);
     }
+    public function scopeMerchantParcels($query)
+    {
+        return $query->where('branch_id', auth()->user()->merchant->id);
+    }
     public function branchs()
     {
         return $this->belongsTo(Branch::class, 'branch_id');
