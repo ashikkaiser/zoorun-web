@@ -16,11 +16,11 @@ const responsive = {
     },
     tablet: {
         breakpoint: { max: 1024, min: 464 },
-        items: 2
+        items: 3
     },
     mobile: {
         breakpoint: { max: 464, min: 0 },
-        items: 1
+        items: 3
     }
 };
 import { Button, Checkbox, Form, Input, Space, Select, notification } from 'antd';
@@ -100,22 +100,22 @@ export const becomeAmerchant = () => {
                     <div className="flex justify-center items-center justify-center flex-wrap">
                         <div className='w-full sm:w-full md:w-2/5 lg:w-2/5'>
                             <div className='p-10' >
-                                <p className='text-white  my-4 text-4xl font-bold leading-tight ' >দেশ সেরা এন্টারপ্রাইজ লজিস্টিকস পৌঁছাবে আপনার লক্ষ্যে</p>
+                                <p className='text-white  my-4 text-4xl font-bold leading-tight ' >আজই জয়েন করুন আমাদের মার্চেন্ট লিস্টে এবং উপভোগ করুন ফাস্টেস্ট কুড়িয়ার সার্ভিস সেবা</p>
                                 <div className="flex items-center gap-5 mb-3">
                                     <AiFillCheckCircle color='green' size={24} />
-                                    <p className='text-white text-xl' >দেশব্যাপী লজিস্টিক্স নেটওয়ার্ক</p>
+                                    <p className='text-white text-xl' >২৪ ঘন্টায় পেমেন্ট নিশ্চয়তা</p>
                                 </div>
                                 <div className="flex items-center gap-5 mb-3">
                                     <AiFillCheckCircle color='green' size={24} />
-                                    <p className='text-white text-xl' >মাত্র ৩ ঘণ্টায় বাণিজ্যিক ট্রাক</p>
+                                    <p className='text-white text-xl' >COD চার্জের উপর অভাবনীয় ছাড়</p>
                                 </div>
                                 <div className="flex items-center gap-5 mb-3">
                                     <AiFillCheckCircle color='green' size={24} />
-                                    <p className='text-white text-xl' >সুরক্ষিত পরিবহনের নিশ্চয়তা</p>
+                                    <p className='text-white text-xl' >সুরক্ষিত পণ্য ডেলিভারী নিশ্চয়তা</p>
                                 </div>
                                 <p>
-                                    <span className='text-white text-xl'>সরাসরি আমাদের সেলস টিম কে কল করুনঃ</span>
-                                    <a href="tel:+1234567890"><span className='text-green-600 text-xl'> +1234567890</span></a>
+                                    <span className='text-white text-xl'>যেকোন প্রয়োজনে সরাসরি আমাদের টিম কে কল করুনঃ </span>
+                                    <a href="tel:+8801324411649"><span className='text-green-600 text-xl'> +8801324411649</span></a>
 
                                 </p>
                             </div>

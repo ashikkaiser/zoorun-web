@@ -152,14 +152,15 @@ export const Header = () => {
                             </div>
                         </div>
                         <div className="py-6 px-5 space-y-6">
-                            <div className="grid grid-cols-2 gap-y-4 gap-x-8">
-                                <Link className="text-base font-medium text-gray-900 hover:text-gray-700" to="/enterprise">Enterprise</Link>
+                            <div className="grid grid-cols-1x gap-y-4 gap-x-8">
+                                <Link className="text-base font-medium text-gray-900 hover:text-gray-700" to="/become-a-merchant">Become A Merchant</Link>
+                                {/* <Link className="text-base font-medium text-gray-900 hover:text-gray-700" to="/enterprise">Enterprise</Link> */}
                                 {/* <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
                                     Enterprise
                                 </a> */}
-                                <Link className="text-base font-medium text-gray-900 hover:text-gray-700" to="/courier">
+                                {/* <Link className="text-base font-medium text-gray-900 hover:text-gray-700" to="/courier">
                                     Courier
-                                </Link>
+                                </Link> */}
 
                                 {/* {resources.map((item) => (
                                     <a

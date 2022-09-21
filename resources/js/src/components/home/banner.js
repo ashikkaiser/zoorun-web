@@ -27,7 +27,7 @@ export const Banner = () => {
     const [phone, setPhone] = useState({})
 
     return (
-        <div style={{ position: "relative" }} >
+        <div style={{ position: "relative", zIndex: -1000 }} >
             <Carousel
                 arrows={false}
                 removeArrowOnDeviceType

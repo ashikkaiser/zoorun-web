@@ -74,10 +74,10 @@ export const Coverage = () => {
         <>
             <div className='container mx-auto py-10 max-w-7xl'>
                 <Space direction="horizontal" size={12} className="mb-3">
-                    <h1>Outside Dhaka</h1>
+                    <h1>Area Selection</h1>
                     <Select
                         showSearch
-                        placeholder="Select a person"
+                        placeholder="Choose Area"
                         optionFilterProp="children"
                         onChange={onChange}
                         onSearch={onSearch}

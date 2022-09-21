@@ -12,8 +12,8 @@ export const CoverageArea = () => {
                         <img style={{ width: "50%" }} src={bdMap} alt="" />
                     </div>
                     <div>
-                        <p className='text-4xl font-bold my-5' > Zoorun লজিস্টিকস সেবা সারাদেশে ৬৪ জেলা এবং ৪৯৩ উপজেলা জুড়ে বিস্তৃত</p>
-                        <p className='text-xl font-semibold my-5'>আপনার যেকোনো লজিস্টিকস প্রয়োজনের জন্য আমরা নিশ্চিত করি দেশজুড়ে সবচেয়ে দ্রুতগতির সেবা</p>
+                        <p className='text-lg sm:text-lg md:text-4xl lg:text-4xl font-bold  my-5' > Zoorun Courier সেবা সারাদেশ জুড়ে বিস্তৃত</p>
+                        <p className='text-md sm:text-md lg:text-xl md:text-xl font-semibold my-5'>আপনার পণ্য কুড়িয়ার সংক্রান্ত যেকোনো সমাধানে শুধুমাত্র আমরাই  নিশ্চিত করছি সবচেয়ে দ্রুতগতির সেবা</p>
 
                         <Link to={'/coverage-area'}>
                             <button className='bg-green-500 text-white w-72 py-3 font-bold my-4 rounded' >কভারেজ এলাকা দেখুন </button>

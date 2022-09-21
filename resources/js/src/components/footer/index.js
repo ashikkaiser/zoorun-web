@@ -1,7 +1,7 @@
 import React from 'react';
 import googlePlay from '../../assets/image/googleplay.svg'
-import mySvg from '../../assets/image/linkedInicon.svg'
-import facebook from '../../assets/image/facebook.svg'
+import fgroup from '../../assets/image/facebook_group.jpeg'
+import facebook from '../../assets/image/facebook_page.jpeg'
 import youtube from '../../assets/image/youtube.svg'
 
 export const Footer = () => {
@@ -12,16 +12,19 @@ export const Footer = () => {
     return (
         <div className='bg-green-600' >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 text-gray-200">
-                <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-5 lg:grid-cols-5 gap-6">
-                    <div className="p-4 col-span-2" >
+                <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-5 lg:grid-cols-5 gap-6 my-5 sm:my-5 md:my-10 lg:my-10">
+                    <div className="" >
                         <img className='my-4' src="/assets/image/logo.png" alt="" />
-                        <p className='my-4'>দ্রুততম সল্যুশনের জন্য Zoorun অ্যাপটি ডাউনলোড করুন</p>
+                        <p className='my-4'>Zoorun Rider অ্যাপটি ডাউনলোড করুন</p>
                         <a target={'_blank'} href="/">
                             <img className='h-16' src={googlePlay} alt="" />
                         </a>
                     </div>
+                    <div className="" >
 
-                    <div className=" p-4 ">
+                    </div>
+
+                    <div className=" ">
                         <p className='text-xl font-semibold' >গুরুত্বপূর্ণ লিংক</p>
                         <div className=" mt-4 ">
                             <a href="/">
@@ -41,7 +44,7 @@ export const Footer = () => {
                             </a>
                         </div>
                     </div>
-                    <div className=" p-4">
+                    <div className="">
                         <p className='text-xl font-semibold' >যোগাযোগ</p>
                         <div className=" mt-4 ">
                             <a href="/">
@@ -56,18 +59,16 @@ export const Footer = () => {
 
                         </div>
                     </div>
-                    <div className=" p-4">
+                    <div className="">
                         <p className='text-xl font-semibold' >সংযুক্ত হন</p>
                         <div className=" mt-4 flex gap-2">
-                            <a href="/">
+                            <a href="https://www.facebook.com/zoorunofficial">
                                 <img className='h-6' src={facebook} alt="" />
                             </a>
-                            <a href="/">
-                                <img className='h-6' src={mySvg} alt="" />
+                            <a href="https://www.facebook.com/groups/440192344501537/?ref=share">
+                                <img className='h-6' src={fgroup} alt="" />
                             </a>
-                            <a href="/">
-                                <img className='h-6' src={youtube} alt="" />
-                            </a>
+
 
                         </div>
                         <p className='mt-4' > &#169; Zoorun {year}. All rights reserved</p>
