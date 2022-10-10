@@ -48,6 +48,12 @@
                                 <div data-i18n="eCommerce">Parcel List</div>
                             </a>
                         </li>
+                        <li
+                            class="menu-item {{ request()->route()->getName() === 'merchant.parcel.booking.bulk.upload'? 'active': '' }}">
+                            <a href="{{ route('merchant.parcel.booking.bulk.upload') }}" class="menu-link">
+                                <div data-i18n="eCommerce">Bulk Parcel Upload</div>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 {{-- Account Menu --}}

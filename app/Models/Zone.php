@@ -11,6 +11,14 @@ class Zone extends Model
 
     protected $fillable = ['name', 'district_id', 'status', 'color'];
 
+    public function ScopeActive($q)
+    {
+        return $q->where('status', true);
+    }
+    public function ScopeInactive($q)
+    {
+        return $q->where('status', false);
+    }
     public function district()
     {
         return $this->belongsTo(District::class);

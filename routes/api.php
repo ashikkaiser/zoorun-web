@@ -31,6 +31,8 @@ Route::group(['prefix' => 'web'], function () {
     Route::any('get_area', [HomeController::class, 'get_area']);
     Route::any('become_a_merchant', [HomeController::class, 'become_a_merchant']);
     Route::any('service_charge', [HomeController::class, 'get_service_charge']);
+    Route::any('get_locations', [HomeController::class, 'get_locations']);
+    Route::any('get_price', [HomeController::class, 'get_price']);
 });
 Route::group(['prefix' => 'merchant'], function () {
     Route::post('login', [AuthController::class, 'login']);
@@ -45,6 +47,9 @@ Route::group(['prefix' => 'merchant'], function () {
     Route::post('newparcel', [MerchantController::class, 'newParcel']);
     Route::post('getParcels', [MerchantController::class, 'getParcels']);
     Route::post('orderTracking', [MerchantController::class, 'orderTracking']);
+    Route::post('dashboard', [MerchantController::class, 'dashboard']);
+    Route::post('getDeliveryParcelList', [MerchantController::class, 'getDeliveryParcelList']);
+    Route::post('getDeliveryPaymentList', [MerchantController::class, 'getDeliveryPaymentList']);
 });
 
 Route::group(['prefix' => 'rider'], function () {

@@ -24,6 +24,7 @@ use App\Http\Controllers\Merchant\BookingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Merchant\DashboardController as MerchantDashboardController;
 use App\Http\Controllers\Merchant\PageController;
+use App\Http\Controllers\Merchant\ParcelImportController;
 use App\Http\Controllers\Merchant\PickupPointController;
 use App\Http\Controllers\Merchant\ProfileController;
 use App\Http\Controllers\Rider\ParcelController;
@@ -240,8 +241,17 @@ Route::group(
         Route::group(['prefix' => 'accounts', 'as' => 'accounts.'], function () {
             Route::get('/delivery-payment-list', [AccountsController::class, 'branchDeliveryPaymentList'])->name("delivery.payment.list");
             Route::get('/merchant-delivery-payment', [AccountsController::class, 'merchantDeliveryPayment'])->name("merchant.delivery.payment");
+
+            Route::post('/merchant-delivery-payment/save', [AccountsController::class, 'storeMerchantPayment'])->name('merchant.delivery.payment.store');
+
             Route::get('/merchant-delivery-payment-list', [AccountsController::class, 'merchantDeliveryPaymentList'])->name("merchant.delivery.payment.list");
+            Route::get('/merchant-delivery-payment-list/view/{id}', [AccountsController::class, 'ViewModal'])->name("merchant.delivery.payment.viewModal");
+            Route::get('/merchant-delivery-payment-list/make-payment/{id}', [AccountsController::class, 'paymentModal'])->name("merchant.delivery.payment.paymentModal");
+            Route::post('/merchant-delivery-payment-list/submit-payment/{id}', [AccountsController::class, 'submitPaymentModal'])->name("merchant.delivery.payment.submitPaymentModal");
         });
+
+
+        Route::post('merchant/get', [AccountsController::class, 'getMerchant'])->name('merchant.get');
     }
 );
 //Merchant Route
@@ -256,18 +266,30 @@ Route::group(['prefix' => 'merchant', 'as' => 'merchant.', 'middleware' => ['mer
     Route::get('/parcel/booking/cancel/{id}', [BookingController::class, 'cancelPickup'])->name('parcel.booking.cancel');
     Route::get('/parcel/booking/hold/{id}', [BookingController::class, 'holdParcel'])->name('parcel.booking.hold');
     Route::get('/parcel/booking/return/{id}', [BookingController::class, 'requestReturn'])->name('parcel.booking.requestReturn');
+    Route::get('parcel/booking/bulk-upload', [ParcelImportController::class, 'index'])->name('parcel.booking.bulk.upload');
+    Route::any('parcel/booking/bulk-upload/show', [ParcelImportController::class, 'showData'])->name('parcel.booking.bulk.upload.show');
+    Route::post('parcel/booking/bulk-process', [ParcelImportController::class, 'fileImport'])->name('parcel.booking.bulk.process');
 
 
     Route::get('/account/delivery/payment/list', [AccountController::class, 'deliveryPaymentList'])->name('account.delivery.payment.list');
     Route::get('/account/delivery/parcel/list', [AccountController::class, 'deliveryParcelList'])->name('account.delivery.parcel.list');
     Route::get('/order/tracking', [PageController::class, 'orderTrack'])->name('order.track');
+    Route::get('/order/tracking/{merchant_order_id?}', [PageController::class, 'orderTrackDetails'])->name('order.track.details');
     Route::get('/coverage/area', [PageController::class, 'coverageArea'])->name('coverage.area');
     Route::get('/service/charge', [PageController::class, 'serviceCharge'])->name('service.charge');
     Route::get('/pickup/point', [PickupPointController::class, 'index'])->name('pickup.point');
     Route::post('/pickup/point/store', [PickupPointController::class, 'store'])->name('pickup.point.store');
+    Route::get('/pickup/point/delete/{id}', [PickupPointController::class, 'destroy'])->name('pickup.point.delete');
     Route::any('/ajax/get_weight_package', [BookingController::class, 'get_weight_package'])->name('ajax.get_weight_package');
     Route::any('/ajax/get_weight_packages', [BookingController::class, 'get_weight_packages'])->name('ajax.get_weight_packages');
     Route::any('/ajax/get_total_calculation', [BookingController::class, 'get_total_calculation'])->name('ajax.get_total_calculation');
+
+
+
+
+
+
+
     Route::get('/ajax/get_area_by_zip', [BookingController::class, 'get_area_by_zip'])->name('ajax.get_area_by_zip');
 });
 //Rider Route

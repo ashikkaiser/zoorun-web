@@ -51,14 +51,14 @@
         </form>
 
         <div class="card-datatable table-responsive">
-            {!! $html->table(['class' => 'datatables-users table border-top']) !!}
+            {{ $dataTable->table() }}
         </div>
     </div>
 @endsection
 
 @section('inline-js')
+    {{ $dataTable->scripts() }}
     <script>
-        $('.select2').select2();
         $('.flatpickr-range').flatpickr({
             mode: 'range'
         });

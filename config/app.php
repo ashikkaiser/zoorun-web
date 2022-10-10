@@ -197,6 +197,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -212,6 +213,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
         // 'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         // 'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Merchant;
 
+use App\DataTables\Branch\MerchantDeliveryPaymentListDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Parcel;
 use Illuminate\Http\Request;
@@ -16,21 +17,23 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function deliveryPaymentList(Builder $builder)
+    public function deliveryPaymentList(MerchantDeliveryPaymentListDataTable $dataTable, Request $request)
+
     {
-        $html = $builder->columns([
-            ['data' => 'DT_RowIndex', 'name' => 'DT_RowIndex', 'title' => 'SL', 'orderable' => false, 'searchable' => false],
-            ['data' => 'name', 'name' => 'name', 'title' => 'Invoice'],
-            ['data' => 'sl_no', 'name' => 'sl_no', 'title' => 'Customer Name'],
-            ['data' => 'number', 'name' => 'number', 'title' => 'Customer Phone'],
-            ['data' => 'number', 'name' => 'number', 'title' => 'Customer Address'],
-            ['data' => 'number', 'name' => 'number', 'title' => 'District'],
-            ['data' => 'number', 'name' => 'number', 'title' => 'Zone'],
-            ['data' => 'number', 'name' => 'number', 'title' => 'Total Charge'],
-            ['data' => 'status', 'name' => 'status', 'title' => 'Status'],
-            ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Action'],
-        ]);
-        return view('admin::merchantPanel.account.delivery-payment-list', compact('html'));
+        // $html = $builder->columns([
+        //     ['data' => 'DT_RowIndex', 'name' => 'DT_RowIndex', 'title' => 'SL', 'orderable' => false, 'searchable' => false],
+        //     ['data' => 'name', 'name' => 'name', 'title' => 'Invoice'],
+        //     ['data' => 'sl_no', 'name' => 'sl_no', 'title' => 'Customer Name'],
+        //     ['data' => 'number', 'name' => 'number', 'title' => 'Customer Phone'],
+        //     ['data' => 'number', 'name' => 'number', 'title' => 'Customer Address'],
+        //     ['data' => 'number', 'name' => 'number', 'title' => 'District'],
+        //     ['data' => 'number', 'name' => 'number', 'title' => 'Zone'],
+        //     ['data' => 'number', 'name' => 'number', 'title' => 'Total Charge'],
+        //     ['data' => 'status', 'name' => 'status', 'title' => 'Status'],
+        //     ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Action'],
+        // ]);
+        return $dataTable->render('admin::merchantPanel.account.delivery-payment-list');
+        // return view('admin::merchantPanel.account.delivery-payment-list', compact('html'));
     }
 
     /**

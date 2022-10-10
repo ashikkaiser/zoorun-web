@@ -119,6 +119,18 @@
     <script src="/frest/js/main.js"></script>
     {{-- <script src="{{ mix('/js/app.js') }}"></script> --}}
 
+    <script>
+        var select2 = $('.select2');
+        if (select2.length) {
+            select2.each(function() {
+                var $this = $(this);
+                $this.wrap('<div class="position-relative"></div>').select2({
+                    placeholder: 'Select value',
+                    dropdownParent: $this.parent()
+                });
+            });
+        }
+    </script>
     @yield('inline-js')
     @yield('components.scripts')
     {{-- @yield('components.upazilla-select') --}}

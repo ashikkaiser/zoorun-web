@@ -9,11 +9,7 @@ function delevery_charge_calculation($area_id, $weight_package_id, $delivery_typ
     $service_areas = json_decode($area->service_area_ids);
     if ($delivery_type) {
         $service_area = \App\Models\ServiceArea::find($delivery_type);
-
-        // dd($values);
-
     } else {
-
         $service_area = \App\Models\ServiceArea::find($service_areas[0]);
         $weightPackages = ServiceWeightPackageSetting::where('service_area_id', $service_area->id)->first();
         $w_ids = json_decode($weightPackages->weight_package_id);
@@ -23,7 +19,6 @@ function delevery_charge_calculation($area_id, $weight_package_id, $delivery_typ
         $cat_rate = $category->rate ?? 0;
         $delevery_charge = intval($w_rates[$package_key]) + intval($cat_rate);
         $total = intval($amount) - $delevery_charge;
-
         $codPercent = $total * intval($service_area->cod) / 100;
         $values = array(
             'delevery_charge' => $delevery_charge + $codPercent,

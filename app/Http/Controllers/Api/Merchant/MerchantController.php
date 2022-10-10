@@ -7,6 +7,7 @@ use App\Models\Area;
 use App\Models\Branch;
 use App\Models\District;
 use App\Models\ItemCategory;
+use App\Models\MerchantPayment;
 use App\Models\Parcel;
 use App\Models\ParcelHistory;
 use App\Models\ParcelStatus;
@@ -26,6 +27,39 @@ class MerchantController extends Controller
     {
         $this->middleware('jwt');
     }
+
+    public function dashboard(Request $request)
+    { {
+            $merchant_id = Auth::user()->merchant->id;
+            $total_parcels = Parcel::where('merchant_id', $merchant_id)->count(); //completed
+            $total_cancel_parcels = Parcel::where('merchant_id', $merchant_id)->count();
+            $total_delivery_parcels = Parcel::where('merchant_id', $merchant_id)->count();
+            $total_return_parcels = Parcel::where('merchant_id', $merchant_id)->count();
+            $total_pickup_pending = Parcel::where('merchant_id', $merchant_id)->whereIn('status', ['pickup-pending', 'pickup-assigned'])->count(); //completed
+            $total_delivery_parcel_pending = Parcel::where('merchant_id', $merchant_id)->whereIn('status', ['pickup-completed', 'received-to-warehouse', 'dispatched-to-rider', 'delivery-in-progress'])->count();
+            $total_delivery_parcel_complete = Parcel::where('merchant_id', $merchant_id)->where('status', 'delivery-completed')->count();
+            $total_return_parcel_complete = Parcel::where('merchant_id', $merchant_id)->where('status', 'delivery-completed')->count(); //completed
+            $total_pending_collect_amount = Parcel::where('merchant_id', $merchant_id)->where('status', 'delivery-completed')->count();
+            $total_collect_amount = Parcel::where('merchant_id', $merchant_id)->where('status', 'delivery-completed')->count();
+            return response()->json([
+                'status' => true,
+                'data' => [
+                    'total_pickup_pending' => $total_pickup_pending,
+                    'total_parcels' => $total_parcels,
+                    'total_cancel_parcels' => $total_cancel_parcels,
+                    'total_delivery_parcels' => $total_delivery_parcels,
+                    'total_return_parcels' => $total_return_parcels,
+                    'total_delivery_parcel_pending' => $total_delivery_parcel_pending,
+                    'total_delivery_parcel_complete' => $total_delivery_parcel_complete,
+                    'total_return_parcel_complete' => $total_return_parcel_complete,
+                    'total_pending_collect_amount' => $total_pending_collect_amount,
+                    'total_collect_amount' => $total_collect_amount,
+
+                ]
+            ]);
+        }
+    }
+
 
     public function create(Request $request)
     {
@@ -149,6 +183,7 @@ class MerchantController extends Controller
         $parcels = Parcel::merchantParcels()->orderBy('id', 'desc')->get();
         return $parcels;
     }
+
     public function orderTracking(Request $request)
     {
         $parcel_id = Str::upper($request->parcel_id);
@@ -172,5 +207,22 @@ class MerchantController extends Controller
                 'ss' => $parcel_id
             ]);
         }
+    }
+
+    public function getDeliveryParcelList(Request $request)
+    {
+        $data = Parcel::query()->where('merchant_id', Auth::user()->merchant->id)->with(['district', 'zone', 'area', 'status'])->where('status', 'delivery-completed')->get();
+        return response()->json([
+            'data' => $data,
+            'status' => true,
+        ]);
+    }
+    public function getDeliveryPaymentList(Request $request)
+    {
+        $data = MerchantPayment::query()->where('merchant_id', Auth::user()->merchant->id)->get();
+        return response()->json([
+            'data' => $data,
+            'status' => true,
+        ]);
     }
 }

@@ -39,8 +39,9 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="timelineWapper"
                                     style="">
-                                    <a class="dropdown-item" href="javascript:void(0);" onclick="editModal()">Edit</a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                    <a class="dropdown-item" href="javascript:void(0);"
+                                        onclick="editModal({{ $pickup_point }})">Edit</a>
+                                    <a class="dropdown-item" href="{{ route('merchant.pickup.point.delete',$pickup_point->id ) }}">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -141,9 +142,109 @@
         </div>
     </div>
     <!--/ Add New Addrres Modal -->
+    <!-- Edit Addrres Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+            <div class="modal-content p-3 p-md-5">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="text-center mb-4">
+                        <h3>Edit Pickup Point</h3>
+                    </div>
+                    <form class="row g-3" action="{{ route('merchant.pickup.point.store') }}" method="POST">
+                        @csrf
+
+                        <div class="col-12">
+                            <label class="form-label w-100" for="name">Name</label>
+                            <div class="input-group input-group-merge">
+                                <input id="editname" name="name" class="form-control credit-card-mask"
+                                    type="text" placeholder="Name" required />
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label w-100" for="name">Address</label>
+                            <div class="input-group input-group-merge">
+                                <textarea name="address" class="form-control" placeholder="Write Down Here..." id="editaddress" rows="4"
+                                    required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label w-100" for="district">District</label>
+                            <select id="editdistrict" class="select2 form-select" data-allow-clear="true" required
+                                name="district_id">
+                                <option value="">Select</option>
+                                @foreach ($districts as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label w-100" for="zones">Zone</label>
+                            <select id="editzone" class="select2 form-select" data-allow-clear="true" required
+                                name="zone_id">
+                                <option value="">Select</option>
+                                @foreach ($zones as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label w-100" for="area_id">Service Area</label>
+                            <select id="editarea" class="select2 form-select" data-allow-clear="true" required
+                                name="area_id">
+                                <option value="">Select</option>
+                                @foreach ($areas as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+                        <div class="col-12">
+                            <label class="form-label w-100" for="postal_code">Phone</label>
+                            <div class="input-group input-group-merge">
+                                <input id="editphone" name="phone" class="form-control" type="text"
+                                    placeholder="Phone Number" required />
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label w-100" for="color">Alternative Phone</label>
+                            <div class="input-group input-group-merge">
+                                <input id="editalt_phone" name="alt_phone" class="form-control" type="text"
+                                    placeholder="Alternative Phone" />
+                            </div>
+                        </div>
+                        <input type="hidden" name="id" id="id">
+                        <div class="col-12 text-center mt-4">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                            <button type="reset" class="btn btn-label-secondary btn-reset" data-bs-dismiss="modal"
+                                aria-label="Close">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ Edit Addrres Modal -->
 @endsection
 
 @section('inline-js')
+    <script>
+        function editModal(data) {
+            console.log(data);
+            $('#editModal').modal('show');
+            $('#editname').val(data.name);
+            $('#editaddress').val(data.address);
+            $('#editdistrict').val(data.district_id).trigger('change');
+            $('#editzone').val(data.zone_id).trigger('change');
+            $('#editarea').val(data.area_id).trigger('change');
+            $('#editphone').val(data.phone);
+            $('#editalt_phone').val(data.alt_phone);
+            $('#id').val(data.id);
+        }
+    </script>
     <script>
         $('#district').on('select2:select', function(e) {
             $('#zone').empty().trigger('change');

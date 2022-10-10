@@ -11,6 +11,14 @@ class Area extends Model
 
     protected $fillable = ['name', 'district_id', 'zone_id', 'postal_code', 'status', 'service_area_ids'];
 
+    public function ScopeActive($q)
+    {
+        return $q->where('status', true);
+    }
+    public function ScopeInactive($q)
+    {
+        return $q->where('status', false);
+    }
     public function district()
     {
         return $this->belongsTo(District::class);

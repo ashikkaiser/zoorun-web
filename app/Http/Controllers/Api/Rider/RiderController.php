@@ -281,7 +281,7 @@ class RiderController extends Controller
                 } else {
                     $parcel->status = 'delivery-completed';
                 }
-                $parcel->collected_amount   = $request->collected_amount;
+                $parcel->collected_amount   = $request->collection_amount;
                 $parcel->riderParceldelivery->status = 3;
                 $parcel->rider_run->complete_parcel = $parcel->rider_run->complete_parcel + 1;
                 $parcel->push();

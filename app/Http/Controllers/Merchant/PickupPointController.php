@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Merchant;
 
 use App\Http\Controllers\Controller;
+use App\Models\Area;
 use App\Models\District;
 use App\Models\PickupAddress;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,8 +20,10 @@ class PickupPointController extends Controller
     public function index()
     {
         $districts = District::active()->get();
+        $zones = Zone::active()->get();
+        $areas = Area::active()->get();
         $pickup_points = PickupAddress::where('merchant_id', Auth::user()->id)->get();
-        return view('themes.frest.merchantPanel.pickup-point.index', compact('districts', 'pickup_points'));
+        return view('themes.frest.merchantPanel.pickup-point.index', compact('districts', 'pickup_points', 'zones', 'areas'));
     }
 
     /**
@@ -61,17 +65,6 @@ class PickupPointController extends Controller
         $pickup_address->save();
         return redirect()->back()->with('success', 'Pickup Address added successfully');
 
-        // PickupAddress::create([
-        //     'merchant_id' => Auth::user()->id,
-        //     'name' => $data['name'],
-        //     'address' => $data['address'],
-        //     'district_id' => $data['district_id'],
-        //     'zone_id' => $data['zone_id'],
-        //     'area_id' => $data['area_id'],
-        //     'phone' => $data['phone'],
-        //     'alt_phone' => $request->alt_phone,
-        //     'status' => true
-        // ]);
     }
 
     /**
@@ -116,6 +109,8 @@ class PickupPointController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pickup_address = PickupAddress::find($id);
+        $pickup_address->delete();
+        return redirect()->back()->with('success', 'Pickup Address deleted successfully');
     }
 }

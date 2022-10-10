@@ -33,24 +33,24 @@
 
 @section('inline-js')
     <script>
-        // function statusChange(id, status) {
-        //     var url = "{{ route('branch.parcel.delivery.status', ':id') }}";
-        //     url = url.replace(':id', id);
-        //     $.ajax({
-        //         url: url,
-        //         type: 'POST',
-        //         data: {
-        //             _token: "{{ csrf_token() }}",
-        //             type: status
-        //         },
-        //         success: function(data) {
-        //             if (data.success) {
-        //                 $('#delivery-table').DataTable().ajax.reload();
-        //             } else {
-        //                 alert(data.message);
-        //             }
-        //         }
-        //     });
-        // }
+        function statusChange(id, status) {
+            var url = "{{ route('branch.parcel.delivery.status', ':id') }}";
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    type: status
+                },
+                success: function(data) {
+                    if (data.success) {
+                        $('#delivery-table').DataTable().ajax.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
+        }
     </script>
 @endsection

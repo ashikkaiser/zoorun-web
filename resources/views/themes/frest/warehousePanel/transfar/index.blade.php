@@ -27,7 +27,7 @@
     <script src="/frest/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
     <script src="/frest/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
     <script src="/frest/vendor/libs/select2/select2.js"></script>
-    {!! $html->scripts() !!}
+    {!! $dataTable->scripts() !!}
 @endsection
 
 
@@ -66,14 +66,14 @@
                     <div class="card-body">
                         <form>
                             <div class="mb-3">
-                                <label class="form-label" for="warehouse_id">Receive Warehouse</label>
+                                <label class="form-label" for="warehouse_id">Sender Warehouse</label>
                                 <input type="text" class="form-control" id="warehouse_id" name=""
-                                    value="{{ $warehouse->name }}" placeholder="John Doe" disabled>
+                                    value="{{ Auth::user()->warehouse->name }}" placeholder="John Doe" disabled>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="rider_id">Select Branch</label>
-                                <select class="select2 form-select from_rider_id" data-allow-clear="true"
-                                    name="receive_from_rider_id" data-placeholder="Select Branch">
+                                <label class="form-label" for="rider_id">Reciver Branch</label>
+                                <select class="select2 form-select dst_branch_id" data-allow-clear="true"
+                                    name="dst_branch_id" data-placeholder="Select Branch">
                                     <option value="">Select Branch</option>
                                     @foreach ($branches as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -91,67 +91,7 @@
                         </form>
                     </div>
                 </div>
-                <!--/ Booking Parcel Receive In Warehouse -->
 
-                <!-- Assign In Vehicle & Warehouse-->
-                {{-- <div class="card mb-4 assign-card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Parcel Send To Warehouse</h5>
-                    </div>
-                    <div class="card-body">
-
-                        <div class="mb-3">
-                            <label class="form-label" for="warehouse_id">Transfer Parcel?</label>
-                            <div class="col mt-2">
-                                <div class="form-check form-check-inline">
-                                    <input name="warehouse" class="form-check-input selectWarehouse" type="radio"
-                                        value="no" id="no" checked="">
-                                    <label class="form-check-label" for="collapsible-address-type-home">NO
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input name="warehouse" class="form-check-input selectWarehouse" type="radio"
-                                        value="yes" id="yes">
-                                    <label class="form-check-label" for="collapsible-address-type-office">
-                                        YES
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="multicol-country">Select To Rider</label>
-                            <select class="select2 form-select send_rider_id" data-allow-clear="true" name="send_rider_id"
-                                data-placeholder="Select From Rider">
-                                <option value="">Select From Rider</option>
-                                @foreach ($riders as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3 warehouse-select">
-                            <label class="form-label" for="multicol-country">Select WareHouse</label>
-                            <select class="select2 form-select" data-allow-clear="true"
-                                data-placeholder="Select From Rider">
-                                <option value="">Select From Rider</option>
-                                @foreach ($warehouses as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="total_parcel">Total Parcel</label>
-                            <input type="text" class="form-control send_total_parcel" id="total_parcel"
-                                name="" placeholder="0" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="Note">Note</label>
-                            <textarea class="form-control" name="note" placeholder="Write note..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send</button>
-
-                    </div>
-                </div> --}}
-                <!--/ Assign In Vehicle & Warehouse -->
             </div>
 
             <div class="row col-md-8">
@@ -178,7 +118,7 @@
 
                         </div>
                         <div class="table-responsive text-nowrap m-3">
-                            {{ $html->table(['class' => 'table']) }}
+                            {{ $dataTable->table(['class' => 'table']) }}
 
                         </div>
                     </div>
@@ -226,7 +166,6 @@
     </script>
 
     <script>
-        var type = 'pickup'
         $('.assign-card').hide();
         $('.selectType').on('change', function() {
             type = $(this).val();
@@ -239,8 +178,7 @@
             }
 
             $('#booking_table').on('preXhr.dt', function(e, settings, data) {
-                data.type = type;
-                data.rider_id = '';
+                data.dst_branch_id = '';
             });
             $("#booking_table").DataTable().ajax.reload();
         });
@@ -254,22 +192,14 @@
         });
 
 
-        $('.from_rider_id').on('select2:select', function(event) {
+        $('.dst_branch_id').on('select2:select', function(event) {
             $('#booking_table').on('preXhr.dt', function(e, settings, data) {
-                data['type'] = type;
-                data['rider_id'] = event.params.data.id;
+                data['dst_branch_id'] = event.params.data.id;
             });
             $('#booking_table').DataTable().ajax.reload();
 
         });
-        $('.send_rider_id').on('select2:select', function(event) {
-            $('#booking_table').on('preXhr.dt', function(e, settings, data) {
-                data['type'] = type;
-                data['rider_id'] = event.params.data.id;
-            });
-            $('#booking_table').DataTable().ajax.reload();
 
-        });
         $('#checkAllAssign').on('click', function() {
             if ($(this).is(':checked')) {
                 $('.checkboxPercel').prop('checked', true);

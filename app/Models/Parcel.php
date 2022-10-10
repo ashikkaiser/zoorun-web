@@ -8,7 +8,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Parcel extends Model
 {
+
     use \Awobaz\Compoships\Compoships;
+
+
+    use HasFactory;
+    protected $fillable = [
+        'merchant_id', 'branch_id',
+        'pickup_address_id', 'parcel_id',
+        'district_id', 'customer_name',
+        'customer_phone', 'delivery_address',
+        'merchant_order_id', 'product_details',
+        'product_amount', 'delivery_charge',
+        'collection_amount', 'remarks',
+        'zone_id', 'status', 'is_return',
+        'area_id', 'category_id',
+        'total', 'destination_branch_id'
+
+    ];
+
     public static function boot()
     {
         parent::boot();

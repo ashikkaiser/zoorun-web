@@ -55,7 +55,7 @@
                             <div class="col-md-6 col-12 mb-2 mb-3">
                                 <label class="form-label" for="personal_address">Full Address</label>
                                 <textarea class="form-control" name="personal_address" rows="3" placeholder="Full Address" spellcheck="false"
-                                    id="personal_address" required style="color: rgb(48, 65, 86);">{{ $merchant->personal_address }}</textarea>
+                                    value="{{ $merchant->personal_address }}" id="personal_address" required style="color: rgb(48, 65, 86);">{{ $merchant->personal_address }}</textarea>
                             </div>
                             <div class="col-md-6 col-12 mb-3">
                                 <label class="form-label" for="company_address">Business Address</label>
@@ -109,8 +109,8 @@
                             <div class="col-md-4 col-12 mb-3">
                                 <label class="form-label" for="phone">Contact Number</label>
                                 <div class="input-group">
-                                    <input type="text" id="phone" class="form-control" name="phone" required
-                                        placeholder="Contact Number">
+                                    <input type="text" id="phone" value="{{ $merchant->phone }}"
+                                        class="form-control" name="phone" required placeholder="Contact Number">
                                 </div>
                             </div>
                             <div class="col-md-4 col-12 mb-3">
@@ -144,15 +144,15 @@
                             <div class="col-md-4 col-12 mb-3">
                                 <label class="form-label" for="email">Email</label>
                                 <div class="input-group">
-                                    <input type="email" id="email" class="form-control" name="email" required
-                                        placeholder="Email">
+                                    <input value="{{ $merchant->email }}" type="email" id="email"
+                                        class="form-control" name="email" required placeholder="Email">
                                 </div>
                             </div>
                             <div class="col-md-4 col-12 mb-3">
                                 <label class="form-label" for="password">Password</label>
                                 <div class="input-group">
-                                    <input type="text" id="password" class="form-control" name="password" required
-                                        placeholder="Password">
+                                    <input type="text" id="password" value="{{ $merchant->password }}"
+                                        class="form-control" name="password" required placeholder="Password">
                                 </div>
                             </div>
                             <div class="col-md-4 col-12 mb-3">

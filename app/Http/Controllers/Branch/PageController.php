@@ -7,6 +7,7 @@ use App\Models\Area;
 use App\Models\Branch;
 use App\Models\District;
 use App\Models\Merchant;
+use App\Models\Rider;
 use App\Models\ServiceArea;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -125,13 +126,25 @@ class PageController extends Controller
      */
     public function riderList(Request $request, Builder $builder)
     {
+        $riders = Rider::where('branch_id', Auth::user()->branch_id)->get();
+        if ($request->ajax()) {
+            return datatables()->of($riders)
+                ->addIndexColumn()
+                ->editColumn('status', function ($rider) {
+                    if ($rider->status) {
+                        return '<span class="badge bg-success">Active</span>';
+                    } else {
+                        return '<span class="badge bg-danger">Inactive</span>';
+                    }
+                })
+                ->rawColumns(['status'])
+                ->toJson();
+        }
         $html = $builder->columns([
-            ['data' => 'id', 'name' => 'id', 'title' => 'ID'],
+            ['data' => 'DT_RowIndex', 'DT_RowIndex' => 'name', 'title' => 'SL', 'orderable' => false, 'searchable' => false,],
             ['data' => 'name', 'name' => 'name', 'title' => 'Name'],
-            ['data' => 'sl_no', 'name' => 'sl_no', 'title' => 'Address'],
-            ['data' => 'number', 'name' => 'number', 'title' => 'Contact Number'],
+            ['data' => 'email', 'name' => 'email', 'title' => 'Email'],
             ['data' => 'status', 'name' => 'status', 'title' => 'Status'],
-            ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Joined At'],
         ]);
         return view('themes.frest.branchPanel.riders.index', compact('html'));
     }

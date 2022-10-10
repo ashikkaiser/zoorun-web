@@ -19,4 +19,8 @@ class District extends Model
     {
         return $q->where('status', false);
     }
+    public function areas()
+    {
+        return $this->hasMany(Area::class);
+    }
 }

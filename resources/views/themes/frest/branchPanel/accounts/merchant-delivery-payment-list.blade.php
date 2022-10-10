@@ -18,7 +18,7 @@
     <script src="/frest/vendor/libs/select2/select2.js"></script>
     <script src="/frest/vendor/libs/flatpickr/flatpickr.js"></script>
 
-    {!! $html->scripts() !!}
+
 @endsection
 
 
@@ -69,20 +69,83 @@
         </form>
 
         <div class="card-datatable table-responsive">
-            {!! $html->table(['class' => 'datatables-users table border-top']) !!}
+            {{ $dataTable->table() }}
         </div>
 
 
 
     </div>
+    {{--  modal --}}
+    <div class="modal fade" id="viewModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" id="viewData">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="paymentModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" id="paymentData">
+
+            </div>
+        </div>
+    </div>
+    {{--  modal --}}
+
 @endsection
 
 @section('inline-js')
+    {!! $dataTable->scripts() !!}
     <script>
         $('.select2').select2();
         $('.flatpickr-input').flatpickr({
             mode: 'range'
             // dateFormat: 'Y-m-d'
+        });
+    </script>
+    <script>
+        $('#MerchantPayment-table').on('click', '.payment-modal', function() {
+            var payment_id = $(this).attr('payment_id');
+            var url = "{{ route('branch.accounts.merchant.delivery.payment.paymentModal', ':payment_id') }}";
+            url = url.replace(':payment_id', payment_id);
+            $('#paymentData').html('');
+            if (payment_id.length != 0) {
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    error: function(xhr) {
+                        alert("An error occurred: " + xhr.status + " " + xhr.statusText);
+                    },
+                    url: url,
+                    success: function(response) {
+                        $('#paymentData').html(response);
+                    },
+
+                })
+            }
+        });
+    </script>
+    <script>
+        $('#MerchantPayment-table').on('click', '.view-modal', function() {
+            var payment_id = $(this).attr('payment_id');
+            var url = "{{ route('branch.accounts.merchant.delivery.payment.viewModal', ':payment_id') }}";
+            url = url.replace(':payment_id', payment_id);
+            $('#viewData').html('');
+            if (payment_id.length != 0) {
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    error: function(xhr) {
+                        alert("An error occurred: " + xhr.status + " " + xhr.statusText);
+                    },
+                    url: url,
+                    success: function(response) {
+                        $('#viewData').html(response);
+                    },
+
+                })
+            }
         });
     </script>
 @endsection

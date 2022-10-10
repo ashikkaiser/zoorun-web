@@ -1,5 +1,16 @@
 const mix = require('laravel-mix');
 
+const domain = 'courier.khata.cloud';
+
+mix.browserSync({
+    proxy: 'https://' + domain,
+    host: domain,
+    open: 'external',
+    https: {
+        key: '/etc/letsencrypt/live/courier.khata.cloud/privkey.pem',
+        cert: '/etc/letsencrypt/live/courier.khata.cloud/fullchain.pem',
+    },
+});
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
